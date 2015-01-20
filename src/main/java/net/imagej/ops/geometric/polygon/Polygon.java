@@ -129,4 +129,10 @@ public class Polygon {
 	public void clear() {
 		points.clear();
 	}
+
+	@Override
+	public String toString() {
+		return "Polygon [points=" + points + "]";
+	}
+
 }

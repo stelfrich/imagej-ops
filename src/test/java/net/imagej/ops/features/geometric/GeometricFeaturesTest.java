@@ -3,6 +3,9 @@ package net.imagej.ops.features.geometric;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +23,14 @@ import net.imagej.ops.features.geometric.GeometricFeatures.PerimeterFeature;
 import net.imagej.ops.features.geometric.GeometricFeatures.RoundnessFeature;
 import net.imagej.ops.features.geometric.GeometricFeatures.SolidityFeature;
 import net.imagej.ops.features.sets.GeometricFeatureSet;
+import net.imagej.ops.geometric.MarchingCubes;
 import net.imagej.ops.geometric.polygon.Polygon;
 import net.imglib2.RealPoint;
+import net.imglib2.img.array.ArrayImg;
+import net.imglib2.img.array.ArrayImgs;
+import net.imglib2.img.array.ArrayRandomAccess;
+import net.imglib2.img.basictypeaccess.array.LongArray;
+import net.imglib2.type.logic.BitType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -701,6 +710,37 @@ public class GeometricFeaturesTest extends AbstractFeatureTest {
 				.compute(p);
 		for (FeatureResult featureResult : compute) {
 			results.put(featureResult.getName(), featureResult.getValue());
+		}
+
+	}
+
+	@Test
+	public void testMarchingCubes() {
+		ArrayImg<BitType, LongArray> bits = ArrayImgs.bits(5, 5, 5);
+		ArrayRandomAccess<BitType> randomAccess = bits.randomAccess();
+
+		randomAccess.setPosition(new int[] { 2, 2, 2 });
+		randomAccess.get().set(true);
+
+		List<Polygon> run = (List<Polygon>) ops.run(MarchingCubes.class, bits, 0);
+		for (Polygon polygon : run) {
+			
+			System.out.print("[");
+			System.out.print(polygon.getPoint(0).getDoublePosition(0)+" ");
+			System.out.print(polygon.getPoint(1).getDoublePosition(0)+" ");
+			System.out.print(polygon.getPoint(2).getDoublePosition(0)+"], ");
+
+			System.out.print("[");
+			System.out.print(polygon.getPoint(0).getDoublePosition(1)+" ");
+			System.out.print(polygon.getPoint(1).getDoublePosition(1)+" ");
+			System.out.print(polygon.getPoint(2).getDoublePosition(1)+"], ");
+			
+			System.out.print("[");
+			System.out.print(polygon.getPoint(0).getDoublePosition(2)+" ");
+			System.out.print(polygon.getPoint(1).getDoublePosition(2)+" ");
+			System.out.print(polygon.getPoint(2).getDoublePosition(2)+"], ");
+			
+			System.out.print("'y', ");
 		}
 
 	}
