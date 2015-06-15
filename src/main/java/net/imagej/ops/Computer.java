@@ -38,7 +38,7 @@ package net.imagej.ops;
  * @param <I> type of input
  * @param <O> type of output
  */
-public interface Computer<I, O> {
+public interface Computer<I, O> extends InputOp<I> {
 
 	/**
 	 * Compute the output given some input.
