@@ -42,7 +42,8 @@ ops = ```
 	[name: "stddev",      iface: "StdDeviation"],
 	[name: "sum",         iface: "Sum"],
 	[name: "threshold",   iface: "Threshold"],
-	[name: "variance",    iface: "Variance"]
+	[name: "variance",    iface: "Variance"],
+	[name: "view",        iface: "View"]
 ]
 ```
 
