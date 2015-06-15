@@ -42,8 +42,7 @@ ops = ```
 	[name: "stddev",      iface: "StdDeviation"],
 	[name: "sum",         iface: "Sum"],
 	[name: "threshold",   iface: "Threshold"],
-	[name: "variance",    iface: "Variance"],
-	[name: "view",        iface: "View"]
+	[name: "variance",    iface: "Variance"]
 ]
 ```
 
@@ -174,5 +173,14 @@ authors = ["Brian Northan"]
 ops = ```
 [
 	[name: "richardsonlucy",         iface: "RichardsonLucy"]
+]
+```
+[ViewOps.java]
+className = "ViewOps"
+namespace = "view"
+authors = ["Tim-Oliver Buchholz"]
+ops = ```
+[
+	[name: "view",         iface: "View"]
 ]
 ```
