@@ -96,7 +96,7 @@ public class RichardsonLucyRAI<I extends RealType<I>, O extends RealType<O>, K e
 
 		// normalize for non-circulant deconvolution
 		if (getNonCirculant()) {
-			inPlaceDivide2(getNormalization(), getRaiExtendedEstimate());
+			inPlaceDivide2(getNormalization(), getRAIExtendedEstimate());
 		}
 
 	}
