@@ -45,7 +45,8 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 /**
- * Richardson Lucy op that operates on (@link Img)
+ * Richardson Lucy op that operates on (@link Img) (Lucy, L. B. (1974).
+ * "An iterative technique for the rectification of observed distributions".)
  * 
  * @author bnorthan
  * @param <I>
@@ -69,6 +70,12 @@ public class RichardsonLucyImg<I extends RealType<I>, O extends RealType<O>, K e
 	private int maxIterations;
 
 	/**
+	 * indicates whether to use non-circulant edge handling
+	 */
+	@Parameter(required = false)
+	private boolean nonCirculant = true;
+
+	/**
 	 * run RichardsonLucyRAI
 	 */
 	@Override
@@ -76,10 +83,19 @@ public class RichardsonLucyImg<I extends RealType<I>, O extends RealType<O>, K e
 		RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftImg,
 		Img<C> fftKernel, Img<O> output, Interval imgConvolutionInterval)
 	{
+		Img<I> input = this.getInput();
+
+		long[] k = new long[input.numDimensions()];
+		long[] l = new long[input.numDimensions()];
+
+		for (int i = 0; i < input.numDimensions(); i++) {
+			k[i] = input.dimension(i);
+			l[i] = getKernel().dimension(i);
+		}
 
 		ops.run(RichardsonLucyRAI.class, raiExtendedInput, raiExtendedKernel,
 			fftImg, fftKernel, output, true, true, maxIterations,
-			imgConvolutionInterval, output.factory());
+			imgConvolutionInterval, output.factory(), k, l, nonCirculant);
 
 	}
 }
