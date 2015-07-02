@@ -32,6 +32,7 @@ package net.imagej.ops.deconvolve;
 
 import net.imagej.ops.AbstractNamespaceTest;
 import net.imagej.ops.DeconvolveOps.RichardsonLucy;
+import net.imagej.ops.DeconvolveOps.RichardsonLucyTV;
 
 import org.junit.Test;
 
@@ -39,7 +40,7 @@ import org.junit.Test;
  * Tests that the ops of the {@code deconvolve} namespace have corresponding
  * type-safe Java method signatures declared in the {@link DeconvolveNamespace}
  * class.
- *
+ * 
  * @author Alison Walter
  */
 public class DeconvolveNamespaceTest extends AbstractNamespaceTest {
@@ -48,6 +49,13 @@ public class DeconvolveNamespaceTest extends AbstractNamespaceTest {
 	@Test
 	public void testRichardsonLucy() {
 		assertComplete("deconvolve", DeconvolveNamespace.class, RichardsonLucy.NAME);
+	}
+
+	/** Tests for {@link RichardsonLucy} method convergence. */
+	@Test
+	public void testRichardsonLucyTV() {
+		assertComplete("deconvolve", DeconvolveNamespace.class,
+			RichardsonLucyTV.NAME);
 	}
 
 }
