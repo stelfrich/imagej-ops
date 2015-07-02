@@ -172,6 +172,7 @@ namespace = "deconvolve"
 authors = ["Brian Northan"]
 ops = ```
 [
-	[name: "richardsonLucy",         iface: "RichardsonLucy"]
+	[name: "richardsonLucy",         iface: "RichardsonLucy"],
+	[name: "richardsonLucyTV",         iface: "RichardsonLucyTV"]
 ]
 ```
