@@ -49,6 +49,7 @@ import net.imagej.ops.statistics.Variance;
 import net.imagej.ops.statistics.moments.Moment2AboutMean;
 import net.imagej.ops.threshold.ThresholdNamespace;
 import net.imagej.ops.threshold.local.LocalThresholdMethod;
+import net.imglib2.Dimensions;
 import net.imglib2.Interval;
 import net.imglib2.IterableInterval;
 import net.imglib2.RandomAccessible;
@@ -74,7 +75,7 @@ import org.scijava.plugin.PTService;
 
 /**
  * Interface for services that manage and execute {@link Op}s.
- *
+ * 
  * @author Curtis Rueden
  */
 public interface OpService extends PTService<Op>, ImageJService {
@@ -83,7 +84,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	 * Executes the given operation with the specified arguments. The best
 	 * {@link Op} implementation to use will be selected automatically from the
 	 * operation name and arguments.
-	 *
+	 * 
 	 * @param name The operation to execute. If multiple {@link Op}s share this
 	 *          name, then the best {@link Op} implementation to use will be
 	 *          selected automatically from the name and arguments.
@@ -99,7 +100,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	 * Executes the operation of the given type with the specified arguments. The
 	 * best {@link Op} implementation to use will be selected automatically from
 	 * the operation type and arguments.
-	 *
+	 * 
 	 * @param type The {@link Class} of the operation to execute. If multiple
 	 *          {@link Op}s share this type (e.g., the type is an interface which
 	 *          multiple {@link Op}s implement), then the best {@link Op}
@@ -115,7 +116,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 
 	/**
 	 * Executes the given {@link Op} with the specified arguments.
-	 *
+	 * 
 	 * @param op The {@link Op} to execute.
 	 * @param args The operation's arguments.
 	 * @return The result of the execution. If the {@link Op} has no outputs, this
@@ -128,7 +129,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/**
 	 * Gets the best {@link Op} to use for the given operation and arguments,
 	 * populating its inputs.
-	 *
+	 * 
 	 * @param name The name of the operation. If multiple {@link Op}s share this
 	 *          name, then the best {@link Op} implementation to use will be
 	 *          selected automatically from the name and arguments.
@@ -140,7 +141,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/**
 	 * Gets the best {@link Op} to use for the given operation type and arguments,
 	 * populating its inputs.
-	 *
+	 * 
 	 * @param type The {@link Class} of the operation. If multiple {@link Op}s
 	 *          share this type (e.g., the type is an interface which multiple
 	 *          {@link Op}s implement), then the best {@link Op} implementation to
@@ -153,7 +154,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/**
 	 * Gets the best {@link Op} to use for the given operation and arguments,
 	 * wrapping it as a {@link Module} with populated inputs.
-	 *
+	 * 
 	 * @param name The name of the operation.
 	 * @param args The operation's arguments.
 	 * @return A {@link Module} wrapping the best {@link Op}, with populated
@@ -164,7 +165,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/**
 	 * Gets the best {@link Op} to use for the given operation type and arguments,
 	 * wrapping it as a {@link Module} with populated inputs.
-	 *
+	 * 
 	 * @param type The required type of the operation. If multiple {@link Op}s
 	 *          share this type (e.g., the type is an interface which multiple
 	 *          {@link Op}s implement), then the best {@link Op} implementation to
@@ -177,7 +178,7 @@ public interface OpService extends PTService<Op>, ImageJService {
 
 	/**
 	 * Wraps the given {@link Op} as a {@link Module}, populating its inputs.
-	 *
+	 * 
 	 * @param op The {@link Op} to wrap and populate.
 	 * @param args The operation's arguments.
 	 * @return A {@link Module} wrapping the {@link Op}, with populated inputs,
@@ -471,72 +472,6 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/** Executes the "deconvolve" operation on the given arguments. */
 	@OpMethod(op = Ops.Deconvolve.class)
 	Object deconvolve(Object... args);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			int maxIterations, Interval imgConvolutionInterval,
-			ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, int maxIterations,
-			Interval imgConvolutionInterval, ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			int maxIterations, Interval imgConvolutionInterval,
-			ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			Img<C> fftKernel, int maxIterations, Interval imgConvolutionInterval,
-			ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			Img<C> fftKernel, RandomAccessibleInterval<O> output, int maxIterations,
-			Interval imgConvolutionInterval, ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			Img<C> fftKernel, RandomAccessibleInterval<O> output,
-			boolean performInputFFT, int maxIterations,
-			Interval imgConvolutionInterval, ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			Img<C> fftKernel, RandomAccessibleInterval<O> output,
-			boolean performInputFFT, boolean performKernelFFT, int maxIterations,
-			Interval imgConvolutionInterval, ImgFactory<O> imgFactory);
-
-	/** Executes the "deconvolve" operation on the given arguments. */
-	@OpMethod(op = net.imagej.ops.deconvolve.RichardsonLucyRAI.class)
-		<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
-		void deconvolve(RandomAccessibleInterval<I> raiExtendedInput,
-			RandomAccessibleInterval<K> raiExtendedKernel, Img<C> fftInput,
-			Img<C> fftKernel, RandomAccessibleInterval<O> output,
-			boolean performInputFFT, boolean performKernelFFT, int maxIterations,
-			Interval imgConvolutionInterval, ImgFactory<O> imgFactory,
-			OutOfBoundsFactory<O, RandomAccessibleInterval<O>> obfOutput);
 
 	/** Executes the "equation" operation on the given arguments. */
 	@OpMethod(op = Ops.Equation.class)
@@ -873,8 +808,8 @@ public interface OpService extends PTService<Op>, ImageJService {
 
 	/** Executes the "map" operation on the given arguments. */
 	@OpMethod(op = net.imagej.ops.map.MapConvertRandomAccessToRandomAccess.class)
-	<A, B extends Type<B>> RandomAccessible<B> map(RandomAccessible<A> input, Function<A, B> function,
-		B type);
+	<A, B extends Type<B>> RandomAccessible<B> map(RandomAccessible<A> input,
+		Function<A, B> function, B type);
 
 	/** Executes the "map" operation on the given arguments. */
 	@OpMethod(op = net.imagej.ops.map.MapIterableIntervalToView.class)
