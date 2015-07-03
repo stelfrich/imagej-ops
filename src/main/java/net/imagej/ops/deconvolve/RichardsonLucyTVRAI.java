@@ -57,7 +57,9 @@ import net.imagej.ops.deconvolve.accelerate.VectorAccelerator;
 /**
  * Richardson Lucy op that operates on (@link RandomAccessibleInterval)
  * Richardson-Lucy algorithm with total variation regularization for 3D confocal
- * microscope deconvolution Microsc Res Rech 2006 Apr; 69(4)- 260-6
+ * microscope deconvolution Microsc Res Rech 2006 Apr; 69(4)- 260-6 The
+ * div_unit_grad function has been adapted from IOCBIOS, Pearu Peterson
+ * https://code.google.com/p/iocbio/
  * 
  * @author bnorthan
  * @param <I>
@@ -83,22 +85,9 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 
 	protected RandomAccessibleInterval<O> raiExtendedVariation;
 
-	Accelerator accelerator = null;
-
-	
 	@Override
 	protected void initialize() {
 		super.initialize();
-
-		System.out.println("------------------------------");
-		System.out.println("RLTV parameters:");
-		
-		System.out.println("k: " + getK());
-		System.out.println("l: " + getL());
-		System.out.println("rf: " + regularizationFactor);
-		System.out.println("acceleration (y/n): "+getAccelerate());
-		System.out.println("------------------------------");
-		
 
 		Type<O> outType = Util.getTypeFromInterval(getOutput());
 
@@ -109,13 +98,10 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 
 		variation = getImgFactory().create(dimensions, outType.createVariable());
 
-		// assemble the extended view of the reblurred
+		// assemble the extended view of the variation buffer
 		raiExtendedVariation =
 			Views.interval(Views.extend(variation, getObfOutput()),
 				getImgConvolutionInterval());
-		if (getAccelerate()) {
-			accelerator = new VectorAccelerator(this.getImgFactory());
-		}
 	}
 
 	@Override
@@ -123,22 +109,13 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 
 		long start = System.currentTimeMillis();
 
-		Img<O> div_unit_grad = div_unit_grad_fast_thread();
+		div_unit_grad_fast_thread();
 		long fasttime = System.currentTimeMillis() - start;
 
-	/*	System.out
-			.println("--------------------------------------------------------------");
-		System.out.println("r factor: " + regularizationFactor +
-			"variation time: " + fasttime);
-		System.out.println("k factor: " + getK()[0] + " l factor: " + getL()[1]);
-		System.out
-			.println("--------------------------------------------------------------");
-*/
-		
 		final Cursor<O> cursorCorrelation =
 			Views.iterable(getRAIExtendedReblurred()).cursor();
 
-		final Cursor<O> cursorDV_estimate = div_unit_grad.cursor();
+		final Cursor<O> cursorDV_estimate = variation.cursor();
 
 		final Cursor<O> cursorEstimate =
 			Views.iterable(getRAIExtendedEstimate()).cursor();
@@ -153,15 +130,11 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 				1f / (1f - regularizationFactor *
 					cursorDV_estimate.get().getRealFloat()));
 		}
-
-		if (getAccelerate()) {
-			accelerator.Accelerate(getRAIExtendedEstimate());
-		}
 	}
 
 	static double hypot3(double a, double b, double c) {
-		//return net.jafama.FastMath.sqrtQuick(a * a + b * b + c * c);
-		 return java.lang.Math.sqrt(a * a + b * b + c * c);
+		// return net.jafama.FastMath.sqrtQuick(a * a + b * b + c * c);
+		return java.lang.Math.sqrt(a * a + b * b + c * c);
 	}
 
 	static double m(double a, double b) {
@@ -179,11 +152,12 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 	final double FLOAT32_EPS = 0.0;
 
 	/**
-	 * Efficient multithreaded version of div_unit_grad
+	 * Efficient multithreaded version of div_unit_grad adapted from IOCBIOS,
+	 * Pearu Peterson https://code.google.com/p/iocbio/
 	 * 
 	 * @return
 	 */
-	Img<O> div_unit_grad_fast_thread() {
+	void div_unit_grad_fast_thread() {
 		final int Nx, Ny, Nz;
 
 		final RandomAccessibleInterval<O> raiExtendedEstimate =
@@ -193,8 +167,6 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 		Ny = (int) raiExtendedEstimate.dimension(1);
 		Nz = (int) raiExtendedEstimate.dimension(2);
 
-		System.out.println(Nx + ": " + Ny + ": " + Nz);
-
 		final AtomicInteger ai = new AtomicInteger(0);
 		final int numThreads = 4;
 
@@ -202,9 +174,6 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 		final Thread[] threads = SimpleMultiThreading.newThreads(numThreads);
 
 		final int zChunkSize = Nz / threads.length;
-
-		System.out.println("numThreads: " + numThreads);
-		System.out.println("zChunkSize " + zChunkSize);
 
 		for (int ithread = 0; ithread < threads.length; ++ithread) {
 			threads[ithread] = new Thread(new Runnable() {
@@ -267,8 +236,6 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 					Cursor<O> fipjmCursor = Views.iterable(raiExtendedEstimate).cursor();
 					Cursor<O> fipkmCursor = Views.iterable(raiExtendedEstimate).cursor();
 					Cursor<O> fipCursor = Views.iterable(raiExtendedEstimate).cursor();
-
-					System.out.println("start: " + start + " end: " + end);
 
 					for (k = start; k < end; k++) {
 						km1 = (k > 0 ? k - 1 : 0);
@@ -346,7 +313,6 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 							fipCursor.fwd();
 
 							for (i = 0; i < Nx; i++) {
-								// System.out.println(i+" "+j+" "+k);
 
 								im1 = (i > 0 ? i - 1 : 0);
 								ip1 = (i + 1 == Nx ? i : i + 1);
@@ -454,15 +420,11 @@ public class RichardsonLucyTVRAI<I extends RealType<I>, O extends RealType<O>, K
 					}// end k
 					long totaltime = System.currentTimeMillis() - starttime;
 
-				//	System.out.println("time for me (dug) (" + myNumber + ") is: " +
-					//	totaltime);
 				}// end run
 			});
 		}
 
 		SimpleMultiThreading.startAndJoin(threads);
-
-		return variation;
 	}
 
 	// TODO: replace this function with divide op
