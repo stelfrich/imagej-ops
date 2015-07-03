@@ -32,9 +32,9 @@ package net.imagej.ops.deconvolve;
 
 import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
-import net.imagej.ops.Ops;
 import net.imagej.ops.convolve.CorrelateFFTRAI;
 import net.imagej.ops.fft.filter.IterativeFFTFilterRAI;
+import net.imagej.ops.DeconvolveOps;
 import net.imglib2.Cursor;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.numeric.ComplexType;
@@ -59,7 +59,7 @@ import net.imagej.ops.deconvolve.accelerate.VectorAccelerator;
  * @param <K>
  * @param <C>
  */
-@Plugin(type = Op.class, name = Ops.Deconvolve.NAME,
+@Plugin(type = Op.class, name = DeconvolveOps.RichardsonLucy.NAME,
 	priority = Priority.HIGH_PRIORITY)
 public class RichardsonLucyRAI<I extends RealType<I>, O extends RealType<O>, K extends RealType<K>, C extends ComplexType<C>>
 	extends IterativeFFTFilterRAI<I, O, K, C>
@@ -68,15 +68,9 @@ public class RichardsonLucyRAI<I extends RealType<I>, O extends RealType<O>, K e
 	@Parameter
 	private OpService ops;
 
-	private Accelerator<O> accelerator = null;
-
 	@Override
 	protected void initialize() {
 		super.initialize();
-
-		if (getAccelerate()) {
-			accelerator = new VectorAccelerator(this.getImgFactory());
-		}
 
 	}
 
@@ -111,10 +105,6 @@ public class RichardsonLucyRAI<I extends RealType<I>, O extends RealType<O>, K e
 
 	public void ComputeEstimate() {
 		inPlaceMultiply(getRAIExtendedEstimate(), getRAIExtendedReblurred());
-
-		if (getAccelerate()) {
-			accelerator.Accelerate(getRAIExtendedEstimate());
-		}
 	}
 
 	// TODO: replace this function with divide op
