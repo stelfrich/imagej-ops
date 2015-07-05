@@ -60,31 +60,6 @@ public class DefaultFace {
 		area = Math.abs((1 / 2.0)
 				* Math.sqrt(Math.pow(cp.getX(), 2) + Math.pow(cp.getY(), 2)
 						+ Math.pow(cp.getZ(), 2)));
-
-		// RealPoint XY = new RealPoint(vertices[1].getDoublePosition(0)
-		// - vertices[0].getDoublePosition(0),
-		// vertices[1].getDoublePosition(1)
-		// - vertices[0].getDoublePosition(1),
-		// vertices[1].getDoublePosition(2)
-		// - vertices[0].getDoublePosition(2));
-		//
-		// RealPoint XZ = new RealPoint(vertices[2].getDoublePosition(0)
-		// - vertices[0].getDoublePosition(0),
-		// vertices[2].getDoublePosition(1)
-		// - vertices[0].getDoublePosition(1),
-		// vertices[2].getDoublePosition(2)
-		// - vertices[0].getDoublePosition(2));
-		//
-		// area = Math.abs((1 / 2.0) * Math.sqrt(Math.pow(
-		// XY.getDoublePosition(1) * XZ.getDoublePosition(2)
-		// - XY.getDoublePosition(2) * XZ.getDoublePosition(1),
-		// 2.0)
-		// + Math.pow(XY.getDoublePosition(2) * XZ.getDoublePosition(0)
-		// - XY.getDoublePosition(0) * XZ.getDoublePosition(2),
-		// 2.0)
-		// + Math.pow(XY.getDoublePosition(0) * XZ.getDoublePosition(1)
-		// - XY.getDoublePosition(1) * XZ.getDoublePosition(0),
-		// 2.0)));
 	}
 
 	@Override

@@ -25,7 +25,7 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 	private double isolevel;
 
 	@Parameter(type = ItemIO.INPUT, required = false)
-	private Interpolator interpolatorClass = new DefaultVertexInterpolator();
+	private VertexInterpolator interpolatorClass = new DefaultVertexInterpolator();
 
 	@Parameter
 	private OpService ops;
