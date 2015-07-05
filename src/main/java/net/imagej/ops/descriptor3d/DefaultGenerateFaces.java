@@ -2,11 +2,11 @@ package net.imagej.ops.descriptor3d;
 
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Op;
+import net.imagej.ops.OpService;
 import net.imglib2.Cursor;
 import net.imglib2.FinalInterval;
 import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
-import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.util.Intervals;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
@@ -23,6 +23,12 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 
 	@Parameter(type = ItemIO.INPUT, required = false, initializer = "init")
 	private double isolevel;
+
+	@Parameter(type = ItemIO.INPUT, required = false)
+	private Interpolator interpolatorClass = new DefaultVertexInterpolator();
+
+	@Parameter
+	private OpService ops;
 
 	private void init() {
 		RandomAccess<T> ra = getInput().randomAccess();
@@ -63,19 +69,19 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 			while (cu.hasNext()) {
 				vertex_values[i++] = cu.next().getRealDouble();
 			}
-			//    4-----5
-			//   /|    /|
-			//  0-----1 |
-			//  | 6---|-7
-			//  |/    |/
-			//  2-----3  
+			// 4-----5
+			// /| /|
+			// 0-----1 |
+			// | 6---|-7
+			// |/ |/
+			// 2-----3
 			vertex_values = mapFlatIterableToLookUpCube(vertex_values);
-			//   3-----2   
-			//  /|    /|   
-			// 0-----1 |   
-			// | 7---|-6   
-			// |/    |/    
-			// 4-----5     
+			// 3-----2
+			// /| /|
+			// 0-----1 |
+			// | 7---|-6
+			// |/ |/
+			// 4-----5
 			int cubeindex = getCubeIndex(vertex_values);
 
 			if (cubeindex != 0) {
@@ -90,45 +96,55 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 
 				double[][] vertlist = new double[12][];
 
-				//TODO: interpolation as input function
-				
 				/* Find the vertices where the surface intersects the cube */
 				if (0 != (EDGE_TABLE[cubeindex] & 1))
-					vertlist[0] = vertexInterpolation(p0, p1, vertex_values[0],
-							vertex_values[1]);
+					vertlist[0] = (double[]) ops.run(interpolatorClass,
+							p0, p1, vertex_values[0],
+							vertex_values[1], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 2))
-					vertlist[1] = vertexInterpolation(p1, p2, vertex_values[1],
-							vertex_values[2]);
+					vertlist[1] = (double[]) ops.run(interpolatorClass,
+							p1, p2, vertex_values[1],
+							vertex_values[2], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 4))
-					vertlist[2] = vertexInterpolation(p2, p3, vertex_values[2],
-							vertex_values[3]);
+					vertlist[2] = (double[]) ops.run(interpolatorClass,
+							p2, p3, vertex_values[2],
+							vertex_values[3], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 8))
-					vertlist[3] = vertexInterpolation(p3, p0, vertex_values[3],
-							vertex_values[0]);
+					vertlist[3] = (double[]) ops.run(interpolatorClass,
+							p3, p0, vertex_values[3],
+							vertex_values[0], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 16))
-					vertlist[4] = vertexInterpolation(p4, p5, vertex_values[4],
-							vertex_values[5]);
+					vertlist[4] = (double[]) ops.run(interpolatorClass,
+							p4, p5, vertex_values[4],
+							vertex_values[5], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 32))
-					vertlist[5] = vertexInterpolation(p5, p6, vertex_values[5],
-							vertex_values[6]);
+					vertlist[5] = (double[]) ops.run(interpolatorClass,
+							p5, p6, vertex_values[5],
+							vertex_values[6], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 64))
-					vertlist[6] = vertexInterpolation(p6, p7, vertex_values[6],
-							vertex_values[7]);
+					vertlist[6] = (double[]) ops.run(interpolatorClass,
+							p6, p7, vertex_values[6],
+							vertex_values[7], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 128))
-					vertlist[7] = vertexInterpolation(p7, p4, vertex_values[7],
-							vertex_values[4]);
+					vertlist[7] = (double[]) ops.run(interpolatorClass,
+							p7, p4, vertex_values[7],
+							vertex_values[4], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 256))
-					vertlist[8] = vertexInterpolation(p0, p4, vertex_values[0],
-							vertex_values[4]);
+					vertlist[8] = (double[]) ops.run(interpolatorClass,
+							p0, p4, vertex_values[0],
+							vertex_values[4], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 512))
-					vertlist[9] = vertexInterpolation(p1, p5, vertex_values[1],
-							vertex_values[5]);
+					vertlist[9] = (double[]) ops.run(interpolatorClass,
+							p1, p5, vertex_values[1],
+							vertex_values[5], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 1024))
-					vertlist[10] = vertexInterpolation(p2, p6,
-							vertex_values[2], vertex_values[6]);
+					vertlist[10] = (double[]) ops.run(interpolatorClass,
+							p2, p6, vertex_values[2],
+							vertex_values[6], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 2048))
-					vertlist[11] = vertexInterpolation(p3, p7,
-							vertex_values[3], vertex_values[7]);
+					vertlist[11] = (double[]) ops.run(interpolatorClass,
+							p3, p7, vertex_values[3],
+							vertex_values[7], isolevel);
 
 				/* Create the triangle */
 				for (i = 0; TRIANGLE_TABLE[cubeindex][i] != -1; i += 3) {
@@ -146,8 +162,9 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][1],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][2]));
-
-					output.addFace(face);
+					if (face.getArea() > 0) {
+						output.addFace(face);
+					}
 				}
 			}
 		}
@@ -182,64 +199,8 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 			int cursorX, int cursorY, int cursorZ) {
 		return Views.flatIterable(
 				Views.interval(extended, new FinalInterval(new long[] {
-						cursorX, cursorY, cursorZ }, new long[] {
-						cursorX + 1, cursorY + 1, cursorZ + 1 }))).cursor();
-	}
-
-	/**
-	 * Linearly interpolate the position where an isosurface cuts an edge
-	 * between two vertices, each with their own scalar value
-	 * 
-	 * @param isolevel
-	 *            the threshold
-	 * @param p1
-	 *            point p1
-	 * @param p2
-	 *            point p2
-	 * @param p1Value
-	 *            the value of point p1
-	 * @param p2Value
-	 *            the value of point p2
-	 * 
-	 * @return the interpolated position between p1 and p2
-	 */
-	private double[] vertexInterpolation(int[] p1, int[] p2, double p1Value,
-			double p2Value) {
-
-		double[] pos = new double[3];
-
-		if (Math.abs(isolevel - p1Value) < 0.00001) {
-			for (int i = 0; i < 3; i++) {
-				pos[i] = p1[i];
-			}
-
-			return pos;
-		}
-
-		if (Math.abs(isolevel - p2Value) < 0.00001) {
-			for (int i = 0; i < 3; i++) {
-				pos[i] = p2[i];
-			}
-
-			return pos;
-		}
-
-		if (Math.abs(p1Value - p2Value) < 0.00001) {
-			for (int i = 0; i < 3; i++) {
-				pos[i] = p1[i];
-			}
-
-			return pos;
-		}
-
-		double mu = (isolevel - p1Value) / (p2Value - p1Value);
-		;
-
-		pos[0] = p1[0] + mu * (p2[0] - p1[0]);
-		pos[1] = p1[1] + mu * (p2[1] - p1[1]);
-		pos[2] = p1[2] + mu * (p2[2] - p1[2]);
-
-		return pos;
+						cursorX, cursorY, cursorZ }, new long[] { cursorX + 1,
+						cursorY + 1, cursorZ + 1 }))).cursor();
 	}
 
 	// For any edge, if one vertex is inside of the surface and the other is
