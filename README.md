@@ -1,4 +1,5 @@
 [![](http://jenkins.imagej.net/job/ImageJ-OPS/lastBuild/badge/icon)](http://jenkins.imagej.net/job/ImageJ-OPS/)
+[![Join the chat at https://gitter.im/imagej/imagej-ops](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/imagej/imagej-ops?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ImageJ OPS
 ==========
