@@ -3,7 +3,7 @@ className = "Feature3DOps"
 authors = ["Tim-Oliver Buchholz"]
 ops = ```
 [
-	[name: "Feature3D",				iface: "Feature3D", 			extends: "Computer"],
+	[name: "Feature3D",				iface: "Feature3D", 			extends: "OutputOp"],
 	[name: "Volume",				iface: "Volume", 			   extends: "Feature3D"]
 ]
 ```

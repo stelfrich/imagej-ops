@@ -30,7 +30,7 @@
 
 package net.imagej.ops.feature3d;
 
-import net.imagej.ops.Computer;
+import net.imagej.ops.OutputOp;
 
 /**
  * Static utility class containing built-in ops interfaces.
@@ -56,7 +56,7 @@ public final class Feature3DOps {
 	/**
 	 * Interface marking implementations of {@link Ops.Feature3D}
 	 */
-	public interface ${op.iface}<I, O> extends ${op.extends}<I, O> {
+	public interface ${op.iface}<O> extends ${op.extends}<O> {
 		// NB: Marker interface
 		public String NAME = "${op.name}";
 	}
