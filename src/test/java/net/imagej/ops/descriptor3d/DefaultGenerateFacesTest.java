@@ -17,7 +17,7 @@ public class DefaultGenerateFacesTest extends AbstractOpTest {
 
 	@Before
 	public void init() {
-		img = new ArrayImgFactory<BitType>().create(new FinalDimensions(9, 9, 9), new BitType());		
+		img = new ArrayImgFactory<BitType>().create(new int[]{9, 9, 9}, new BitType());		
 	}
 	
 	@Test

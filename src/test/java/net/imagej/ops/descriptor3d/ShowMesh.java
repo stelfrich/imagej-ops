@@ -30,7 +30,7 @@ public class ShowMesh extends AbstractOpTest {
 //		Opener o = new Opener();
 //		ImagePlus imp = o.openImage("/home/tibuch/mri.tif");
 		
-		Img<BitType> img = new ArrayImgFactory<BitType>().create(new FinalDimensions(81, 81, 81), new BitType());		
+		Img<BitType> img = new ArrayImgFactory<BitType>().create(new int[]{81,81,81}, new BitType());		
 		
 		Cursor<BitType> c = Views.interval(img, new long[]{0, 0, 0}, new long[]{80, 80, 80}).cursor();
 		while (c.hasNext()) {
