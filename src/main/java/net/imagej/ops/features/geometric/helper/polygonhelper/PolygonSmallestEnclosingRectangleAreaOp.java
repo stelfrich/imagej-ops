@@ -3,7 +3,7 @@ package net.imagej.ops.features.geometric.helper.polygonhelper;
 import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
 import net.imagej.ops.OutputOp;
-import net.imagej.ops.statistics.GeometricOps.Area;
+import net.imagej.ops.statistics.Geometric2DOps.Area;
 import net.imglib2.type.numeric.real.DoubleType;
 
 import org.scijava.ItemIO;

@@ -35,7 +35,7 @@ import net.imagej.ops.geometric.GeometricOps.CenterOfGravity;
 import net.imagej.ops.geometric.GeometricOps.ConvexHull;
 import net.imagej.ops.geometric.polygon.GeometricPolygonOps.BoundingBoxPolygon;
 import net.imagej.ops.geometric.polygon.GeometricPolygonOps.SmallestEnclosingRectanglePolygon;
-import net.imagej.ops.statistics.GeometricOps.Area;
+import net.imagej.ops.statistics.Geometric2DOps.Area;
 import net.imglib2.RealPoint;
 import net.imglib2.type.numeric.real.DoubleType;
 

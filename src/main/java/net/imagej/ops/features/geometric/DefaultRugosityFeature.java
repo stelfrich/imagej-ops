@@ -1,8 +1,8 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.ConvexityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.RugosityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.ConvexityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.RugosityFeature;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonConvexHullPerimeterOp;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonPerimeterOp;
 import net.imglib2.type.numeric.real.DoubleType;

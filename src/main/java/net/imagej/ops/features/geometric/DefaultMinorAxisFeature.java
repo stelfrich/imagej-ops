@@ -1,7 +1,7 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.MinorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MinorAxisFeature;
 import net.imagej.ops.features.geometric.helper.polygonhelper.MinorMajorAxisOp;
 import net.imglib2.type.numeric.real.DoubleType;
 

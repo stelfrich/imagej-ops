@@ -33,7 +33,7 @@ package net.imagej.ops.features.firstorder;
 import net.imagej.ops.Op;
 import net.imagej.ops.features.firstorder.FirstOrderFeatures.MeanFeature;
 import net.imagej.ops.features.firstorder.FirstOrderFeatures.SumFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.AreaFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.AreaFeature;
 import net.imagej.ops.statistics.FirstOrderOps.Mean;
 import net.imglib2.type.numeric.RealType;
 
