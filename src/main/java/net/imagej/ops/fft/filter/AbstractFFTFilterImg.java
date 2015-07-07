@@ -69,7 +69,7 @@ public abstract class AbstractFFTFilterImg<I extends RealType<I>, O extends Real
 	private ImgFactory<C> fftFactory;
 
 	/**
-	 * compute output by extending the input(s) and running the filter
+	 * Compute output by extending the input(s) and running the filter
 	 */
 	@Override
 	public Img<O> safeCompute(Img<I> input, Img<O> output) {
