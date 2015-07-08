@@ -69,8 +69,8 @@ import org.scijava.plugin.Plugin;
  * @author Daniel Seebacher, University of Konstanz.
  *
  */
-@Plugin(type = FeatureSet.class, label = "Geometric Features", description = "Calculates the Geometric Features")
-public class GeometricFeatureSet extends
+@Plugin(type = FeatureSet.class, label = "Geometric 2D Features", description = "Calculates the Geometric 2D Features")
+public class Geometric2DFeatureSet extends
 		AbstractAutoResolvingFeatureSet<RandomAccessibleInterval<BoolType>, DoubleType> {
 
 	@Override
