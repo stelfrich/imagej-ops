@@ -28,6 +28,14 @@ import = "Geometric3DOps"
 authors = [Christian Dietz, Daniel Seebacher, Andreas Graumann, Tim-Oliver Buchholz]
 ops = ```
 [
-  [name: "Volume",	        iface: "Volume"]
+  [name: "Volume",	        iface: "Volume"],
+  [name: "SurfaceArea",     iface: "SurfaceArea"],
+  [name: "SurfacePixel",    iface: "SurfacePixel"],
+  [name: "Compactness",     iface: "Compactness"],
+  [name: "Sphericity",      iface: "Sphericity"],
+  [name: "CentroidX",       iface: "CentroidX"],
+  [name: "CentroidY",       iface: "CentroidY"],
+  [name: "CentroidZ",       iface: "CentroidZ"],
+  [name: "Moments2",        iface: "Moments2"]
 ]
 ```
