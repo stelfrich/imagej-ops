@@ -21,7 +21,7 @@ import net.imagej.ops.features.geometric.Geometric2DFeatures.MinorAxisFeature;
 import net.imagej.ops.features.geometric.Geometric2DFeatures.PerimeterFeature;
 import net.imagej.ops.features.geometric.Geometric2DFeatures.RoundnessFeature;
 import net.imagej.ops.features.geometric.Geometric2DFeatures.SolidityFeature;
-import net.imagej.ops.features.sets.GeometricFeatureSet;
+import net.imagej.ops.features.sets.Geometric2DFeatureSet;
 import net.imglib2.roi.Regions;
 import net.imglib2.roi.labeling.LabelRegion;
 import net.imglib2.type.numeric.real.DoubleType;
@@ -38,7 +38,7 @@ import org.junit.Test;
  * @author Daniel Seebacher, University of Konstanz.
  *
  */
-public class GeometricFeaturesTest extends AbstractFeatureTest {
+public class Geometric2DFeaturesTest extends AbstractFeatureTest {
 
 	private Map<String, Double> results = new HashMap<String, Double>();
 
@@ -48,8 +48,8 @@ public class GeometricFeaturesTest extends AbstractFeatureTest {
 		List<Pair<String, DoubleType>> compute = null;
 		try {
 
-			compute = ops.op(GeometricFeatureSet.class, LabelRegion.class)
-					.getFeatureList(Regions.iterable(createLabelRegion()));
+			compute = ops.op(Geometric2DFeatureSet.class, LabelRegion.class)
+					.getFeatureList(Regions.iterable(createLabelRegion2D()));
 
 		} catch (MalformedURLException e) {
 			fail("Couldn't create LabelRegion " + e.getMessage());
