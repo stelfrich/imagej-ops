@@ -10,19 +10,19 @@ public class BitTypeVertexInterpolator extends AbstractVertexInterpolator {
 	@Override
 	public void run() {
 		output = new double[3];
-		if (p1Value > p2Value) {
+//		if (p1Value > p2Value) {
+//			for (int i = 0; i < 3; i++) {
+//				output[i] = p1[i];
+//			}
+//		} else if (p1Value < p2Value) {
+//			for (int i = 0; i < 3; i++) {
+//				output[i] = p2[i];
+//			}
+//		} else {
 			for (int i = 0; i < 3; i++) {
-				output[i] = p1[i];
+				output[i] = (p1[i] + p2[i])/2.0;
 			}
-		} else if (p1Value < p2Value) {
-			for (int i = 0; i < 3; i++) {
-				output[i] = p2[i];
-			}
-		} else {
-			for (int i = 0; i < 3; i++) {
-				output[i] = (p1[i] + p2[i])/2;
-			}
-		}
+//		}
 	}
 
 }

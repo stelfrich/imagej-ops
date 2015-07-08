@@ -1,5 +1,6 @@
 package net.imagej.ops.descriptor3d;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -15,9 +16,9 @@ public class BitTypeVertexInterpolatorTest extends AbstractOpTest {
 			double v1 = 0;
 			double v2 = 1;
 			double[] res = (double[]) ops.run(BitTypeVertexInterpolator.class, p1, p2, v1, v2);
-				assertTrue(res[0] == 10);
-				assertTrue(res[1] == 0.0);
-				assertTrue(res[2] == 10);
+				assertEquals(5, res[0], 1e-10);
+				assertEquals(0, res[1], 1e-10);
+				assertEquals(5, res[2], 1e-10);
 	}
 	
 	@Test
@@ -27,9 +28,9 @@ public class BitTypeVertexInterpolatorTest extends AbstractOpTest {
 			double v1 = 1;
 			double v2 = 0;
 			double[] res = (double[]) ops.run(BitTypeVertexInterpolator.class, p1, p2, v1, v2);
-				assertTrue(res[0] == 0);
-				assertTrue(res[1] == 0.0);
-				assertTrue(res[2] == 0);
+			assertEquals(5, res[0], 1e-10);
+			assertEquals(0, res[1], 1e-10);
+			assertEquals(5, res[2], 1e-10);
 	}
 	
 	@Test
@@ -39,8 +40,8 @@ public class BitTypeVertexInterpolatorTest extends AbstractOpTest {
 			double v1 = 1;
 			double v2 = 1;
 			double[] res = (double[]) ops.run(BitTypeVertexInterpolator.class, p1, p2, v1, v2);
-				assertTrue(res[0] == 5);
-				assertTrue(res[1] == 0);
-				assertTrue(res[2] == 5);
+			assertEquals(5, res[0], 1e-10);
+			assertEquals(0, res[1], 1e-10);
+			assertEquals(5, res[2], 1e-10);
 	}
 }
