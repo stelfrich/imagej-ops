@@ -7,6 +7,8 @@ import net.imglib2.Cursor;
 import net.imglib2.FinalInterval;
 import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
+import net.imglib2.type.BooleanType;
+import net.imglib2.type.logic.BoolType;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.util.Intervals;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
@@ -17,27 +19,18 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 @Plugin(type = Op.class, name = "defaultgeneratefaces")
-public class DefaultGenerateFaces<T extends RealType<T>> extends
+public class DefaultGenerateFaces<T extends BooleanType<T>> extends
 		AbstractOutputFunction<RandomAccessibleInterval<T>, DefaultFaces>
 		implements GenerateFaces<T, DefaultFaces> {
 
-	@Parameter(type = ItemIO.INPUT, required = false, initializer = "init")
-	private double isolevel;
+	@Parameter(type = ItemIO.INPUT, required = false)
+	private double isolevel = 1;
 
 	@Parameter(type = ItemIO.INPUT, required = false)
-	private VertexInterpolator interpolatorClass = new DefaultVertexInterpolator();
+	private VertexInterpolator interpolatorClass = new BitTypeVertexInterpolator();
 
 	@Parameter
 	private OpService ops;
-
-	private void init() {
-		RandomAccess<T> ra = getInput().randomAccess();
-		ra.setPosition(Intervals.minAsIntArray(getInput()));
-		double minVal = ra.get().getMinValue();
-		double maxVal = ra.get().getMaxValue();
-		isolevel = (maxVal + minVal) / 2.0;
-
-	}
 
 	@Override
 	public DefaultFaces createOutput(RandomAccessibleInterval<T> input) {
@@ -45,17 +38,16 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 		return new DefaultFaces();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected DefaultFaces safeCompute(RandomAccessibleInterval<T> input,
 			DefaultFaces output) {
 		ExtendedRandomAccessibleInterval<T, RandomAccessibleInterval<T>> extended = Views
-				.extendZero(input);
-
+				.extendValue(input, (T)(Object) new BoolType(false));
 		Cursor<T> c = Views.interval(
 				extended,
-				new FinalInterval(new long[] { -1, -1, -1 }, new long[] {
-						input.dimension(0), input.dimension(1),
-						input.dimension(2) })).localizingCursor();
+				new FinalInterval(new long[] {input.min(0) - 1, input.min(1) - 1, input.min(2) - 1}, new long[] {
+						input.max(0) + 1, input.max(1) + 1, input.max(2) + 1})).localizingCursor();
 
 		while (c.hasNext()) {
 			c.next();
@@ -67,7 +59,7 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 			int i = 0;
 			double[] vertex_values = new double[8];
 			while (cu.hasNext()) {
-				vertex_values[i++] = cu.next().getRealDouble();
+				vertex_values[i++] = (cu.next().get()) ? 1 : 0;
 			}
 			// 4-----5
 			// /| /|
@@ -98,53 +90,41 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 
 				/* Find the vertices where the surface intersects the cube */
 				if (0 != (EDGE_TABLE[cubeindex] & 1))
-					vertlist[0] = (double[]) ops.run(interpolatorClass,
-							p0, p1, vertex_values[0],
-							vertex_values[1], isolevel);
+					vertlist[0] = (double[]) ops.run(interpolatorClass, p0, p1,
+							vertex_values[0], vertex_values[1], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 2))
-					vertlist[1] = (double[]) ops.run(interpolatorClass,
-							p1, p2, vertex_values[1],
-							vertex_values[2], isolevel);
+					vertlist[1] = (double[]) ops.run(interpolatorClass, p1, p2,
+							vertex_values[1], vertex_values[2], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 4))
-					vertlist[2] = (double[]) ops.run(interpolatorClass,
-							p2, p3, vertex_values[2],
-							vertex_values[3], isolevel);
+					vertlist[2] = (double[]) ops.run(interpolatorClass, p2, p3,
+							vertex_values[2], vertex_values[3], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 8))
-					vertlist[3] = (double[]) ops.run(interpolatorClass,
-							p3, p0, vertex_values[3],
-							vertex_values[0], isolevel);
+					vertlist[3] = (double[]) ops.run(interpolatorClass, p3, p0,
+							vertex_values[3], vertex_values[0], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 16))
-					vertlist[4] = (double[]) ops.run(interpolatorClass,
-							p4, p5, vertex_values[4],
-							vertex_values[5], isolevel);
+					vertlist[4] = (double[]) ops.run(interpolatorClass, p4, p5,
+							vertex_values[4], vertex_values[5], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 32))
-					vertlist[5] = (double[]) ops.run(interpolatorClass,
-							p5, p6, vertex_values[5],
-							vertex_values[6], isolevel);
+					vertlist[5] = (double[]) ops.run(interpolatorClass, p5, p6,
+							vertex_values[5], vertex_values[6], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 64))
-					vertlist[6] = (double[]) ops.run(interpolatorClass,
-							p6, p7, vertex_values[6],
-							vertex_values[7], isolevel);
+					vertlist[6] = (double[]) ops.run(interpolatorClass, p6, p7,
+							vertex_values[6], vertex_values[7], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 128))
-					vertlist[7] = (double[]) ops.run(interpolatorClass,
-							p7, p4, vertex_values[7],
-							vertex_values[4], isolevel);
+					vertlist[7] = (double[]) ops.run(interpolatorClass, p7, p4,
+							vertex_values[7], vertex_values[4], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 256))
-					vertlist[8] = (double[]) ops.run(interpolatorClass,
-							p0, p4, vertex_values[0],
-							vertex_values[4], isolevel);
+					vertlist[8] = (double[]) ops.run(interpolatorClass, p0, p4,
+							vertex_values[0], vertex_values[4], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 512))
-					vertlist[9] = (double[]) ops.run(interpolatorClass,
-							p1, p5, vertex_values[1],
-							vertex_values[5], isolevel);
+					vertlist[9] = (double[]) ops.run(interpolatorClass, p1, p5,
+							vertex_values[1], vertex_values[5], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 1024))
-					vertlist[10] = (double[]) ops.run(interpolatorClass,
-							p2, p6, vertex_values[2],
-							vertex_values[6], isolevel);
+					vertlist[10] = (double[]) ops.run(interpolatorClass, p2,
+							p6, vertex_values[2], vertex_values[6], isolevel);
 				if (0 != (EDGE_TABLE[cubeindex] & 2048))
-					vertlist[11] = (double[]) ops.run(interpolatorClass,
-							p3, p7, vertex_values[3],
-							vertex_values[7], isolevel);
+					vertlist[11] = (double[]) ops.run(interpolatorClass, p3,
+							p7, vertex_values[3], vertex_values[7], isolevel);
 
 				/* Create the triangle */
 				for (i = 0; TRIANGLE_TABLE[cubeindex][i] != -1; i += 3) {
@@ -512,9 +492,4 @@ public class DefaultGenerateFaces<T extends RealType<T>> extends
 			{ 0, 9, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 			{ 0, 3, 8, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
 			{ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 } };
-
-	@Override
-	public boolean conforms() {
-		return getInput().numDimensions() == 3;
-	}
 }
