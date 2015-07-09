@@ -6,14 +6,18 @@ import java.util.Set;
 import net.imagej.ops.OpRef;
 import net.imagej.ops.descriptor3d.BitTypeVertexInterpolator;
 import net.imagej.ops.descriptor3d.DefaultGenerateFaces;
+import net.imagej.ops.descriptor3d.MultiVariate3D;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
 import net.imagej.ops.features.FeatureSet;
-import net.imagej.ops.features.geometric3d.DefaultSurfaceAreaFeature;
 import net.imagej.ops.features.geometric3d.DefaultCentroidXFeature;
 import net.imagej.ops.features.geometric3d.DefaultCentroidYFeature;
 import net.imagej.ops.features.geometric3d.DefaultCentroidZFeature;
 import net.imagej.ops.features.geometric3d.DefaultCompactnessFeature;
+import net.imagej.ops.features.geometric3d.DefaultMainElongationFeature;
+import net.imagej.ops.features.geometric3d.DefaultMedianElongationFeature;
+import net.imagej.ops.features.geometric3d.DefaultSparenessFeature;
 import net.imagej.ops.features.geometric3d.DefaultSphericityFeature;
+import net.imagej.ops.features.geometric3d.DefaultSurfaceAreaFeature;
 import net.imagej.ops.features.geometric3d.DefaultSurfacePixelFeature;
 import net.imagej.ops.features.geometric3d.DefaultVolumeFeature;
 import net.imglib2.RandomAccessibleInterval;
@@ -38,6 +42,9 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 		outputOps.add(createOpRef(DefaultCentroidXFeature.class));
 		outputOps.add(createOpRef(DefaultCentroidYFeature.class));
 		outputOps.add(createOpRef(DefaultCentroidZFeature.class));
+		outputOps.add(createOpRef(DefaultMainElongationFeature.class));
+		outputOps.add(createOpRef(DefaultMedianElongationFeature.class));
+		outputOps.add(createOpRef(DefaultSparenessFeature.class));
 		return outputOps;
 	}
 
@@ -45,6 +52,7 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 	public Set<OpRef<?>> getHiddenOps() {
 		final HashSet<OpRef<?>> hiddenOps = new HashSet<OpRef<?>>();
 		hiddenOps.add(createOpRef(DefaultGenerateFaces.class, 1, new BitTypeVertexInterpolator()));
+		hiddenOps.add(createOpRef(MultiVariate3D.class));
 		return hiddenOps;
 	}
 

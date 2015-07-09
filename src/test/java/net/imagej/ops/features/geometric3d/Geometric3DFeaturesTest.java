@@ -15,6 +15,9 @@ import net.imagej.ops.features.geometric.Geometric3DFeatures.CentroidXFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.CentroidYFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.CentroidZFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.CompactnessFeature;
+import net.imagej.ops.features.geometric.Geometric3DFeatures.MainElongationFeature;
+import net.imagej.ops.features.geometric.Geometric3DFeatures.MedianElongationFeature;
+import net.imagej.ops.features.geometric.Geometric3DFeatures.SparenessFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SphericityFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SurfaceAreaFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SurfacePixelFeature;
@@ -137,6 +140,36 @@ public class Geometric3DFeaturesTest extends AbstractFeatureTest {
 	public void testCentroidZ() {
 		// value taken from imagej
 		assertEquals(CentroidZFeature.NAME, 50, results.get(CentroidZFeature.NAME),
+				AbstractFeatureTest.BIG_DELTA);
+	}
+	
+	/**
+	 * Test the {@link AreaFeature} Op.
+	 */
+	@Test
+	public void testMainElongation() {
+		// value taken from imagej
+		assertEquals(MainElongationFeature.NAME, 1.001, results.get(MainElongationFeature.NAME),
+				AbstractFeatureTest.BIG_DELTA);
+	}
+	
+	/**
+	 * Test the {@link AreaFeature} Op.
+	 */
+	@Test
+	public void testMedianElongation() {
+		// value taken from imagej
+		assertEquals(MedianElongationFeature.NAME, 1.000, results.get(MedianElongationFeature.NAME),
+				0.01);
+	}
+	
+	/**
+	 * Test the {@link AreaFeature} Op.
+	 */
+	@Test
+	public void testSpareness() {
+		// value taken from imagej
+		assertEquals(SparenessFeature.NAME, 1.000, results.get(SparenessFeature.NAME),
 				AbstractFeatureTest.BIG_DELTA);
 	}
 }
