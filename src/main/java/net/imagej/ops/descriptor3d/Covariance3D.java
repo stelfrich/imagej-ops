@@ -1,70 +1,97 @@
 package net.imagej.ops.descriptor3d;
 
-public class Moments2 {
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.EigenDecomposition;
 
-	private double s00;
-	private double s01;
-	private double s02;
-	private double s11;
-	private double s12;
-	private double s22;
+public class Covariance3D {
+	
+	private Array2DRowRealMatrix matrix;
+	private EigenDecomposition ed = null;
 
-	public Moments2(final double s00, final double s01, final double s02,
-			final double s11, final double s12, final double s22) {
-		this.s00 = s00;
-		this.s01 = s01;
-		this.s02 = s02;
-		this.s11 = s11;
-		this.s12 = s12;
-		this.s22 = s22;
+	public Covariance3D() {
+
+		
+		matrix = new Array2DRowRealMatrix(3, 3);
+		matrix.setEntry(0, 0, 0);
+		matrix.setEntry(0, 1, 0);
+		matrix.setEntry(0, 2, 0);
+		
+		matrix.setEntry(1, 0, 0);
+		matrix.setEntry(1, 1, 0);
+		matrix.setEntry(1, 2, 0);
+		
+		matrix.setEntry(2, 0, 0);
+		matrix.setEntry(2, 1, 0);
+		matrix.setEntry(2, 2, 0);		
+	}
+	
+	public Array2DRowRealMatrix getCovarianceMatrix() {
+		return matrix;
+	}
+	
+	public double[] getEigenvector(int i) {
+		if (ed == null) {
+			ed = new EigenDecomposition(matrix);
+		}
+		return ed.getEigenvector(i).toArray();
+	}
+	
+	public double getEigenvalue(int i) {
+		if (ed == null) {
+			ed = new EigenDecomposition(matrix);
+		}
+		return ed.getRealEigenvalue(i);
 	}
 
-	public double getS00() {
-		return s00;
+	public double getS200() {
+		return matrix.getEntry(0, 0);
 	}
 
-	public void setS200(double s00) {
-		this.s00 = s00;
+	public void setS200(double s200) {
+		matrix.setEntry(0, 0, s200);
 	}
 
-	public double getS01() {
-		return s01;
+	public double getS110() {
+		return matrix.getEntry(0, 1);
 	}
 
-	public void setS110(double s01) {
-		this.s01 = s01;
+	public void setS110(double s110) {
+		matrix.setEntry(1, 0, s110);
+		matrix.setEntry(0, 1, s110);
 	}
 
-	public double getS02() {
-		return s02;
+	public double getS101() {
+		return matrix.getEntry(0, 2);
 	}
 
-	public void setS101(double s02) {
-		this.s02 = s02;
+	public void setS101(double s101) {
+		matrix.setEntry(2, 0, s101);
+		matrix.setEntry(0, 2, s101);
 	}
 
-	public double getS11() {
-		return s11;
+	public double getS020() {
+		return matrix.getEntry(1, 1);
 	}
 
-	public void setS020(double s11) {
-		this.s11 = s11;
+	public void setS020(double s020) {
+		matrix.setEntry(1, 1, s020);
 	}
 
-	public double getS12() {
-		return s12;
+	public double getS011() {
+		return matrix.getEntry(1, 2);
 	}
 
-	public void setS011(double s12) {
-		this.s12 = s12;
+	public void setS011(double s011) {
+		matrix.setEntry(2, 1, s011);
+		matrix.setEntry(1, 2, s011);
 	}
 
-	public double getS22() {
-		return s22;
+	public double getS002() {
+		return matrix.getEntry(2, 2);
 	}
 
-	public void setS002(double s22) {
-		this.s22 = s22;
+	public void setS002(double s002) {
+		matrix.setEntry(2, 2, s002);
 	}
 
 }
