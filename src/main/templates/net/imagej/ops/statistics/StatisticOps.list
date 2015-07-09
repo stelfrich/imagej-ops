@@ -36,7 +36,9 @@ ops = ```
   [name: "CentroidX",       iface: "CentroidX"],
   [name: "CentroidY",       iface: "CentroidY"],
   [name: "CentroidZ",       iface: "CentroidZ"],
-  [name: "Moments2",        iface: "Moments2"]
+  [name: "MainElongation",  iface: "MainElongation"],
+  [name: "MedianElongation",iface: "MedianElongation"],
+  [name: "Spareness",       iface: "Spareness"]
 ]
 ```
 
