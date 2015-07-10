@@ -6,7 +6,7 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.descriptor3d.MultiVariate3D;
+import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.MedianElongationFeature;
 import net.imglib2.type.logic.BoolType;
 import net.imglib2.type.numeric.real.DoubleType;
@@ -16,7 +16,7 @@ public class DefaultMedianElongationFeature implements
 		MedianElongationFeature<DoubleType> {
 
 	@Parameter(type = ItemIO.INPUT)
-	private MultiVariate3D<BoolType> input;
+	private SecondMultiVariate3D<BoolType> input;
 
 	@Parameter(type = ItemIO.OUTPUT)
 	private DoubleType out;

@@ -1,7 +1,7 @@
 package net.imagej.ops.features.geometric3d;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.descriptor3d.DefaultGenerateFaces;
+import net.imagej.ops.descriptor3d.MarchingCubes;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SurfacePixelFeature;
 import net.imglib2.type.numeric.real.DoubleType;
 
@@ -15,7 +15,7 @@ public class DefaultSurfacePixelFeature implements
 		SurfacePixelFeature<DoubleType> {
 
 	@Parameter(type = ItemIO.INPUT)
-	private DefaultGenerateFaces<?> input;
+	private MarchingCubes<?> input;
 
 	@Parameter(type = ItemIO.OUTPUT)
 	private DoubleType out;

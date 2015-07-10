@@ -6,7 +6,7 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.descriptor3d.MultiVariate3D;
+import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.MainElongationFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.MedianElongationFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SparenessFeature;
@@ -24,7 +24,7 @@ public class DefaultSparenessFeature implements SparenessFeature<DoubleType> {
 	private MedianElongationFeature<DoubleType> medianElongation;
 
 	@Parameter(type = ItemIO.INPUT)
-	private MultiVariate3D<BoolType> multivar;
+	private SecondMultiVariate3D<BoolType> multivar;
 
 	@Parameter(type = ItemIO.INPUT)
 	private VolumeFeature<DoubleType> volume;
@@ -48,7 +48,7 @@ public class DefaultSparenessFeature implements SparenessFeature<DoubleType> {
 		double r2 = r1 / mainElongation.getOutput().get();
 		double r3 = r2 / medianElongation.getOutput().get();
 
-		double volumeEllipsoid = ((4 / 3.0) * Math.PI * r1 * r2 * r3);
+		double volumeEllipsoid = (4.18879 * r1 * r2 * r3);
 
 		out = new DoubleType(volume.getOutput().get() / volumeEllipsoid);
 	}

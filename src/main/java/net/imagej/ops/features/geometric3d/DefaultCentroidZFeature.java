@@ -1,7 +1,7 @@
 package net.imagej.ops.features.geometric3d;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.descriptor3d.DefaultGenerateFaces;
+import net.imagej.ops.descriptor3d.MarchingCubes;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.CentroidZFeature;
 import net.imglib2.roi.IterableRegion;
 import net.imglib2.type.BooleanType;

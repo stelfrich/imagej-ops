@@ -5,8 +5,8 @@ import java.util.Set;
 
 import net.imagej.ops.OpRef;
 import net.imagej.ops.descriptor3d.BitTypeVertexInterpolator;
-import net.imagej.ops.descriptor3d.DefaultGenerateFaces;
-import net.imagej.ops.descriptor3d.MultiVariate3D;
+import net.imagej.ops.descriptor3d.MarchingCubes;
+import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
 import net.imagej.ops.features.FeatureSet;
 import net.imagej.ops.features.geometric3d.DefaultCentroidXFeature;
@@ -51,8 +51,8 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 	@Override
 	public Set<OpRef<?>> getHiddenOps() {
 		final HashSet<OpRef<?>> hiddenOps = new HashSet<OpRef<?>>();
-		hiddenOps.add(createOpRef(DefaultGenerateFaces.class, 1, new BitTypeVertexInterpolator()));
-		hiddenOps.add(createOpRef(MultiVariate3D.class));
+		hiddenOps.add(createOpRef(MarchingCubes.class, 1, new BitTypeVertexInterpolator()));
+		hiddenOps.add(createOpRef(SecondMultiVariate3D.class));
 		return hiddenOps;
 	}
 

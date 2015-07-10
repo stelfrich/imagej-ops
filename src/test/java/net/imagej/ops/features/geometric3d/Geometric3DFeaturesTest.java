@@ -160,7 +160,7 @@ public class Geometric3DFeaturesTest extends AbstractFeatureTest {
 	public void testMedianElongation() {
 		// value taken from imagej
 		assertEquals(MedianElongationFeature.NAME, 1.000, results.get(MedianElongationFeature.NAME),
-				0.01);
+				0.001);
 	}
 	
 	/**
