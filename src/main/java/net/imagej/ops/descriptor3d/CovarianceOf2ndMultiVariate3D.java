@@ -3,12 +3,12 @@ package net.imagej.ops.descriptor3d;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 
-public class Covariance3D {
+public class CovarianceOf2ndMultiVariate3D {
 	
 	private Array2DRowRealMatrix matrix;
 	private EigenDecomposition ed = null;
 
-	public Covariance3D() {
+	public CovarianceOf2ndMultiVariate3D() {
 
 		
 		matrix = new Array2DRowRealMatrix(3, 3);
