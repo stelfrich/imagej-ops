@@ -5,12 +5,9 @@ import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
 import net.imglib2.Cursor;
 import net.imglib2.FinalInterval;
-import net.imglib2.RandomAccess;
 import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.BooleanType;
 import net.imglib2.type.logic.BoolType;
-import net.imglib2.type.numeric.RealType;
-import net.imglib2.util.Intervals;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
@@ -19,9 +16,9 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 @Plugin(type = Op.class, name = "defaultgeneratefaces")
-public class DefaultGenerateFaces<T extends BooleanType<T>> extends
+public class MarchingCubes<T extends BooleanType<T>> extends
 		AbstractOutputFunction<RandomAccessibleInterval<T>, DefaultFaces>
-		implements GenerateFaces<T, DefaultFaces> {
+		implements Polygonize<T, DefaultFaces> {
 
 	@Parameter(type = ItemIO.INPUT, required = false)
 	private double isolevel = 1;
