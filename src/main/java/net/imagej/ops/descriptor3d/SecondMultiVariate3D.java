@@ -14,19 +14,19 @@ import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
 @Plugin(type = Op.class, name = "multivariate3d")
-public class MultiVariate3D<B extends BooleanType<B>> extends
-		AbstractOutputFunction<IterableRegion<B>, Covariance3D> implements Contingent {
+public class SecondMultiVariate3D<B extends BooleanType<B>> extends
+		AbstractOutputFunction<IterableRegion<B>, CovarianceOf2ndMultiVariate3D> implements Contingent {
 
 	@Parameter(type = ItemIO.INPUT)
 	private VolumeFeature<DoubleType> volume;
 	
 	@Override
-	public Covariance3D createOutput(IterableRegion<B> input) {
-		return new Covariance3D();
+	public CovarianceOf2ndMultiVariate3D createOutput(IterableRegion<B> input) {
+		return new CovarianceOf2ndMultiVariate3D();
 	}
 
 	@Override
-	protected Covariance3D safeCompute(IterableRegion<B> input, Covariance3D output) {
+	protected CovarianceOf2ndMultiVariate3D safeCompute(IterableRegion<B> input, CovarianceOf2ndMultiVariate3D output) {
 		Cursor<B> c = input.localizingCursor();
 		int[] pos = new int[3];
 		double mX = (input.max(0) + input.min(0)) / 2;
