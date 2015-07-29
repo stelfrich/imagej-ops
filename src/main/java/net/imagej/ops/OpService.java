@@ -405,6 +405,6 @@ public interface OpService extends PTService<Op>, ImageJService {
 	/** Gateway into ops of the "threshold" namespace. */
 	ThresholdNamespace threshold();
 
-	/** Gateway into ops of the "threshold" namespace. */
+	/** Gateway into ops of the "view" namespace. */
 	ViewNamespace view();
 }
