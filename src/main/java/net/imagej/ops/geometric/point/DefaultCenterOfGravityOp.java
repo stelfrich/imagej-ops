@@ -4,7 +4,7 @@ import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
 import net.imagej.ops.geometric.point.GeometricPointOps.CenterOfGravityPoint;
 import net.imagej.ops.geometric.polygon.Polygon;
-import net.imagej.ops.statistics.GeometricOps.Area;
+import net.imagej.ops.statistics.Geometric2DOps.Area;
 import net.imglib2.RealPoint;
 import net.imglib2.type.numeric.real.DoubleType;
 

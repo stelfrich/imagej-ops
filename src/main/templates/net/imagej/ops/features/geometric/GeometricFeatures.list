@@ -1,22 +1,43 @@
-[GeometricFeatures.java]
-className = "GeometricFeatures"
-authors = [Christian Dietz, Daniel Seebacher, Andreas Graumann]
+[Geometric2DFeatures.java]
+className = "Geometric2DFeatures"
+import = "Geometric2DOps"
+authors = [Christian Dietz, Daniel Seebacher, Andreas Graumann, Tim-Oliver Buchholz]
 ops = ```
 [
-  [name: "Area",	iface: "Area"],
-  [name: "Circularity",	iface: "Circularity"],
+  [name: "Area",	        iface: "Area"],
+  [name: "Roundness",	    iface: "Roundness"],
+  [name: "Circularity",	    iface: "Circularity"],
   [name: "Eccentricity",	iface: "Eccentricity"],
-  [name: "Feret",	iface: "Feret"],
-  [name: "FeretsAngle",	iface: "FeretsAngle"],
+  [name: "Feret",	        iface: "Feret"],
+  [name: "FeretsAngle",	    iface: "FeretsAngle"],
   [name: "FeretsDiameter",	iface: "FeretsDiameter"],
-  [name: "Perimeter",	iface: "Perimeter"],
-  [name: "MajorAxis",	iface: "MajorAxis"],
-  [name: "MinorAxis",	iface: "MinorAxis"],
-  [name: "Elongation",	iface: "Elongation"],
+  [name: "Perimeter",	    iface: "Perimeter"],
+  [name: "MajorAxis",	    iface: "MajorAxis"],
+  [name: "MinorAxis",	    iface: "MinorAxis"],
+  [name: "Elongation",	    iface: "Elongation"],
   [name: "Rectangularity",	iface: "Rectangularity"],
-  [name: "Roundness",	iface: "Roundness"],
-  [name: "Solidity",	iface: "Solidity"],
-  [name: "Convexity",	iface: "Convexity"],
-  [name: "Rugosity",	iface: "Rugosity"]
+  [name: "Solidity",	    iface: "Solidity"],
+  [name: "Convexity",	    iface: "Convexity"],
+  [name: "Rugosity",	    iface: "Rugosity"]
+]
+```
+
+[Geometric3DFeatures.java]
+className = "Geometric3DFeatures"
+import = "Geometric3DOps"
+authors = [Christian Dietz, Daniel Seebacher, Andreas Graumann, Tim-Oliver Buchholz]
+ops = ```
+[
+  [name: "Volume",	        iface: "Volume"],
+  [name: "SurfaceArea",     iface: "SurfaceArea"],
+  [name: "SurfacePixel",    iface: "SurfacePixel"],
+  [name: "Compactness",     iface: "Compactness"],
+  [name: "Sphericity",      iface: "Sphericity"],
+  [name: "CentroidX",       iface: "CentroidX"],
+  [name: "CentroidY",       iface: "CentroidY"],
+  [name: "CentroidZ",       iface: "CentroidZ"],
+  [name: "MainElongation",  iface: "MainElongation"],
+  [name: "MedianElongation",iface: "MedianElongation"],
+  [name: "Spareness",       iface: "Spareness"]
 ]
 ```

@@ -1,6 +1,6 @@
-[GeometricOps.java]
-className = "GeometricOps"
-namespace = "geometric"
+[Geometric2DOps.java]
+className = "Geometric2DOps"
+namespace = "geometric2D"
 authors = [Christian Dietz, Daniel Seebacher, Andreas Graumann]
 ops = ```
 [
@@ -19,6 +19,26 @@ ops = ```
   [name: "Solidity",	iface: "Solidity"],
   [name: "Convexity",	iface: "Convexity"],
   [name: "Rugosity",	iface: "Rugosity"]
+]
+```
+
+[Geometric3DOps.java]
+className = "Geometric3DOps"
+namespace = "geometric3D"
+authors = [Christian Dietz, Daniel Seebacher, Tim-Oliver Buchholz]
+ops = ```
+[
+  [name: "Volume",	        iface: "Volume"],
+  [name: "SurfaceArea",     iface: "SurfaceArea"],
+  [name: "SurfacePixel",    iface: "SurfacePixel"],
+  [name: "Compactness",     iface: "Compactness"],
+  [name: "Sphericity",      iface: "Sphericity"],
+  [name: "CentroidX",       iface: "CentroidX"],
+  [name: "CentroidY",       iface: "CentroidY"],
+  [name: "CentroidZ",       iface: "CentroidZ"],
+  [name: "MainElongation",  iface: "MainElongation"],
+  [name: "MedianElongation",iface: "MedianElongation"],
+  [name: "Spareness",       iface: "Spareness"]
 ]
 ```
 

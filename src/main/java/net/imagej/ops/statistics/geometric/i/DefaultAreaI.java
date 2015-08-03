@@ -5,8 +5,8 @@ import java.util.Iterator;
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Op;
 import net.imagej.ops.OpUtils;
-import net.imagej.ops.features.geometric.GeometricFeatures.AreaFeature;
-import net.imagej.ops.statistics.GeometricOps.Area;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.AreaFeature;
+import net.imagej.ops.statistics.Geometric2DOps.Area;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.DoubleType;
 

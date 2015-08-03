@@ -1,7 +1,7 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.SolidityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.SolidityFeature;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonAreaOp;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonConvexHullAreaOp;
 import net.imglib2.type.numeric.real.DoubleType;

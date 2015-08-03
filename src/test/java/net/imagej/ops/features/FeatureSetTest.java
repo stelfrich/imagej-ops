@@ -10,7 +10,7 @@ import net.imagej.ops.features.firstorder.FirstOrderFeatures.MinFeature;
 import net.imagej.ops.features.haralick.HaralickFeatures;
 import net.imagej.ops.features.haralick.helper.CooccurrenceMatrix2D;
 import net.imagej.ops.features.sets.FirstOrderStatFeatureSet;
-import net.imagej.ops.features.sets.GeometricFeatureSet;
+import net.imagej.ops.features.sets.Geometric2DFeatureSet;
 import net.imagej.ops.features.sets.Haralick2DFeatureSet;
 import net.imagej.ops.features.sets.HistogramFeatureSet;
 import net.imagej.ops.features.sets.ImageMomentsFeatureSet;
@@ -66,10 +66,10 @@ public class FeatureSetTest extends AbstractFeatureTest {
 	@Test
 	public void geometricTest() throws MalformedURLException, IOException {
 
-		GeometricFeatureSet op = ops.op(GeometricFeatureSet.class,
+		Geometric2DFeatureSet op = ops.op(Geometric2DFeatureSet.class,
 				LabelRegion.class);
 
-		eval(op.getFeatureList(createLabelRegion()));
+		eval(op.getFeatureList(createLabelRegion2D()));
 	}
 
 	@Test

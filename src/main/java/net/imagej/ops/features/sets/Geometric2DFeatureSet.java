@@ -36,18 +36,18 @@ import java.util.Set;
 import net.imagej.ops.OpRef;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
 import net.imagej.ops.features.FeatureSet;
-import net.imagej.ops.features.geometric.GeometricFeatures.CircularityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.ConvexityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.EccentricityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.ElongationFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.FeretsAngleFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.FeretsDiameterFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.MajorAxisFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.MinorAxisFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.RectangularityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.RoundnessFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.RugosityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.SolidityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.CircularityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.ConvexityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.EccentricityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.ElongationFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.FeretsAngleFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.FeretsDiameterFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MajorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MinorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.RectangularityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.RoundnessFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.RugosityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.SolidityFeature;
 import net.imagej.ops.features.geometric.helper.polygonhelper.MinorMajorAxisOp;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonConvexHullAreaOp;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonConvexHullOp;
@@ -69,8 +69,8 @@ import org.scijava.plugin.Plugin;
  * @author Daniel Seebacher, University of Konstanz.
  *
  */
-@Plugin(type = FeatureSet.class, label = "Geometric Features", description = "Calculates the Geometric Features")
-public class GeometricFeatureSet extends
+@Plugin(type = FeatureSet.class, label = "Geometric 2D Features", description = "Calculates the Geometric 2D Features")
+public class Geometric2DFeatureSet extends
 		AbstractAutoResolvingFeatureSet<RandomAccessibleInterval<BoolType>, DoubleType> {
 
 	@Override

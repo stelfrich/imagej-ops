@@ -14,6 +14,7 @@ import net.imagej.ops.OpCandidate;
 import net.imagej.ops.OpMatchingService;
 import net.imagej.ops.OpRef;
 import net.imagej.ops.OpService;
+import net.imagej.ops.OutputFunction;
 import net.imagej.ops.OutputOp;
 
 import org.scijava.convert.ConversionRequest;
@@ -282,7 +283,8 @@ public class DefaultOpResolverService extends AbstractService implements
 			}
 
 			// Handle operation
-			if (Op.class.isAssignableFrom(itemType)) {
+			if (Op.class.isAssignableFrom(itemType)
+					|| OutputFunction.class.isAssignableFrom(itemType)) {
 				final Class<? extends Op> opToResolve = (Class<? extends Op>) itemType;
 
 				if (tmpCompiledModules.containsKey(opToResolve)) {

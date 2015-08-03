@@ -3,9 +3,9 @@ package net.imagej.ops.statistics.geometric.polygon;
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Op;
 import net.imagej.ops.OpUtils;
-import net.imagej.ops.features.geometric.GeometricFeatures.PerimeterFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.PerimeterFeature;
 import net.imagej.ops.geometric.polygon.Polygon;
-import net.imagej.ops.statistics.GeometricOps.Perimeter;
+import net.imagej.ops.statistics.Geometric2DOps.Perimeter;
 import net.imglib2.type.numeric.RealType;
 import net.imglib2.type.numeric.real.DoubleType;
 

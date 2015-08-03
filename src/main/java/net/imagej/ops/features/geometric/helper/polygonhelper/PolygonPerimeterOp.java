@@ -3,7 +3,7 @@ package net.imagej.ops.features.geometric.helper.polygonhelper;
 import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
 import net.imagej.ops.OutputOp;
-import net.imagej.ops.features.geometric.GeometricFeatures.PerimeterFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.PerimeterFeature;
 import net.imagej.ops.geometric.polygon.Polygon;
 import net.imglib2.type.numeric.real.DoubleType;
 

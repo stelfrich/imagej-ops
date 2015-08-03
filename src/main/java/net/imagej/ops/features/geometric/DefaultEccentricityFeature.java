@@ -1,9 +1,9 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.EccentricityFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.MajorAxisFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.MinorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.EccentricityFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MajorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MinorAxisFeature;
 import net.imglib2.type.numeric.real.DoubleType;
 
 import org.scijava.ItemIO;

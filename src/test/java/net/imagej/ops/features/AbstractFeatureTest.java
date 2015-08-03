@@ -1,5 +1,8 @@
 package net.imagej.ops.features;
 
+import ij.ImagePlus;
+import ij.io.Opener;
+
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -20,8 +23,10 @@ import net.imglib2.RealPoint;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayCursor;
 import net.imglib2.img.array.ArrayImg;
+import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.array.ArrayImgs;
 import net.imglib2.img.basictypeaccess.array.ByteArray;
+import net.imglib2.img.display.imagej.ImageJFunctions;
 import net.imglib2.roi.EllipseRegionOfInterest;
 import net.imglib2.roi.labeling.ImgLabeling;
 import net.imglib2.roi.labeling.LabelRegion;
@@ -30,6 +35,9 @@ import net.imglib2.roi.labeling.LabelingType;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.integer.IntType;
 import net.imglib2.type.numeric.integer.UnsignedByteType;
+import net.imglib2.type.numeric.real.FloatType;
+import net.imglib2.view.IntervalView;
+import net.imglib2.view.Views;
 
 import org.junit.Before;
 import org.scijava.Context;
@@ -893,8 +901,8 @@ public class AbstractFeatureTest extends AbstractOpTest {
 		return p;
 	}
 
-	protected LabelRegion<?> createLabelRegion() throws MalformedURLException,
-			IOException {
+	protected LabelRegion<?> createLabelRegion2D()
+			throws MalformedURLException, IOException {
 		// read simple polygon image
 		BufferedImage read = ImageIO.read(AbstractFeatureTest.class
 				.getResourceAsStream("cZgkFsK.png"));
@@ -915,6 +923,32 @@ public class AbstractFeatureTest extends AbstractOpTest {
 		}
 
 		LabelRegions<String> labelRegions = new LabelRegions<String>(img);
+		return labelRegions.getLabelRegion("1");
+
+	}
+
+	protected LabelRegion<?> createLabelRegion3D()
+			throws MalformedURLException, IOException {
+		
+		Opener o = new Opener();
+		ImagePlus imp = o.openImage("/home/tibuch/Shape3D.tif");
+		
+		ImgLabeling<String, IntType> labeling = new ImgLabeling<String, IntType>(ArrayImgs.ints(100, 100, 100));
+		
+		RandomAccess<LabelingType<String>> ra = labeling.randomAccess();
+		Img<FloatType> img = ImageJFunctions.convertFloat(imp);
+		Cursor<FloatType> c = img.cursor();
+		while (c.hasNext()) {
+			FloatType item = c.next();
+			int[] pos = new int[3];
+			c.localize(pos);
+			ra.setPosition(pos);
+			if (item.get() > 0) {
+				ra.get().add("1");
+			}
+		}
+		LabelRegions<String> labelRegions = new LabelRegions<String>(labeling);
+
 		return labelRegions.getLabelRegion("1");
 
 	}

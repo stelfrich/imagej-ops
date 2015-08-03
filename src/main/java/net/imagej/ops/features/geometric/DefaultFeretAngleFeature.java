@@ -1,7 +1,7 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.FeretsAngleFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.FeretsAngleFeature;
 import net.imagej.ops.features.geometric.helper.polygonhelper.PolygonFeretOp;
 import net.imglib2.RealPoint;
 import net.imglib2.type.numeric.real.DoubleType;

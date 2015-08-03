@@ -1,8 +1,8 @@
 package net.imagej.ops.features.geometric;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.features.geometric.GeometricFeatures.MajorAxisFeature;
-import net.imagej.ops.features.geometric.GeometricFeatures.RoundnessFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.MajorAxisFeature;
+import net.imagej.ops.features.geometric.Geometric2DFeatures.RoundnessFeature;
 import net.imagej.ops.geometric.polygon.Polygon;
 import net.imagej.ops.statistics.geometric.polygon.DefaultAreaPolygon;
 import net.imglib2.type.numeric.real.DoubleType;
