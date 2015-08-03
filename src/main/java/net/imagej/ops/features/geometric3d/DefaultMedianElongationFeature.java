@@ -34,7 +34,7 @@ public class DefaultMedianElongationFeature implements
 	@Override
 	public void run() {
 		out = new DoubleType(Math.sqrt(input.getOutput().getEigenvalue(1)
-				/ input.getOutput().getEigenvalue(0)));
+				/ input.getOutput().getEigenvalue(2)));
 	}
 
 }
