@@ -19,7 +19,7 @@ class Vertex extends Vector3D {
 	
 	private double m_distanceToFaceInFront = 0;
 	
-	private List<MyFace> m_facesInFront = new ArrayList<MyFace>();
+	private List<DefaultFacet> m_facesInFront = new ArrayList<DefaultFacet>();
 	
 	public Vertex(double x, double y, double z) {
 		super(x, y, z);
@@ -33,7 +33,7 @@ class Vertex extends Vector3D {
 		this.m_distanceToFaceInFront = m_distanceToFaceInFront;
 	}
 
-	public void addFaceInFront(MyFace f) {
+	public void addFaceInFront(DefaultFacet f) {
 		m_facesInFront.add(f);
 	}
 	
@@ -43,7 +43,7 @@ class Vertex extends Vector3D {
 	
 	
 	public List<Vertex> getPointsInFront() {
-		Iterator<MyFace> it = m_facesInFront.iterator();
+		Iterator<DefaultFacet> it = m_facesInFront.iterator();
 		List<Vertex> l = new ArrayList<Vertex>();
 		while (it.hasNext()) {
 			l.addAll(it.next().getPointsInFront());
@@ -51,7 +51,7 @@ class Vertex extends Vector3D {
 		return l;
 	}
 
-	public List<MyFace> getFacesInFront() {
+	public List<DefaultFacet> getFacesInFront() {
 		// TODO Auto-generated method stub
 		return m_facesInFront;
 	}
