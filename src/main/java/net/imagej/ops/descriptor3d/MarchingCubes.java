@@ -11,6 +11,7 @@ import net.imglib2.type.logic.BoolType;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
+import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.scijava.ItemIO;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
@@ -126,16 +127,16 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 				/* Create the triangle */
 				for (i = 0; TRIANGLE_TABLE[cubeindex][i] != -1; i += 3) {
 
-					DefaultFace face = new DefaultFace(
-							new Vector3d(
+					MyFace face = new MyFace(
+							new Vertex(
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][1],
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][2]),
-							new Vector3d(
+							new Vertex(
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 1]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 1]][1],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 1]][2]),
-							new Vector3d(
+							new Vertex(
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][1],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][2]));
