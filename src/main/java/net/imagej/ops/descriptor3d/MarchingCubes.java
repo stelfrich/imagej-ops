@@ -18,8 +18,8 @@ import org.scijava.plugin.Plugin;
 
 @Plugin(type = Op.class, name = "defaultgeneratefaces")
 public class MarchingCubes<T extends BooleanType<T>> extends
-		AbstractOutputFunction<RandomAccessibleInterval<T>, DefaultFaces>
-		implements Polygonize<T, DefaultFaces> {
+		AbstractOutputFunction<RandomAccessibleInterval<T>, DefaultFacets>
+		implements Polygonize<T, DefaultFacets> {
 
 	@Parameter(type = ItemIO.INPUT, required = false)
 	private double isolevel = 1;
@@ -31,15 +31,15 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 	private OpService ops;
 
 	@Override
-	public DefaultFaces createOutput(RandomAccessibleInterval<T> input) {
+	public DefaultFacets createOutput(RandomAccessibleInterval<T> input) {
 
-		return new DefaultFaces();
+		return new DefaultFacets();
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	protected DefaultFaces safeCompute(RandomAccessibleInterval<T> input,
-			DefaultFaces output) {
+	protected DefaultFacets safeCompute(RandomAccessibleInterval<T> input,
+			DefaultFacets output) {
 		ExtendedRandomAccessibleInterval<T, RandomAccessibleInterval<T>> extended = Views
 				.extendValue(input, (T)(Object) new BoolType(false));
 		Cursor<T> c = Views.interval(
@@ -127,7 +127,7 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 				/* Create the triangle */
 				for (i = 0; TRIANGLE_TABLE[cubeindex][i] != -1; i += 3) {
 
-					MyFace face = new MyFace(
+					DefaultFacet face = new DefaultFacet(
 							new Vertex(
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][1],
