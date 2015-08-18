@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class DefaultFaces implements Faces, Iterable<MyFace> {
+public class DefaultFacets implements Facets, Iterable<DefaultFacet> {
 
-	private ArrayList<MyFace> faces;
+	private ArrayList<DefaultFacet> faces;
 	
 	private HashSet<Vertex> points;
 	
@@ -16,21 +16,23 @@ public class DefaultFaces implements Faces, Iterable<MyFace> {
 	
 	private Vertex centroid;
 
-	public DefaultFaces() {
-		faces = new ArrayList<MyFace>();
+	private double m_epsilon;
+
+	public DefaultFacets() {
+		faces = new ArrayList<DefaultFacet>();
 		points = new HashSet<Vertex>();
 		area = 0;
 	}
 
-	public ArrayList<MyFace> getFaces() {
+	public ArrayList<DefaultFacet> getFacets() {
 		return faces;
 	}
 
-	public void setFaces(ArrayList<MyFace> faces) {
+	public void setFaces(ArrayList<DefaultFacet> faces) {
 		this.faces = faces;
 	}
 	
-	public void addFace(MyFace f) {
+	public void addFace(DefaultFacet f) {
 		faces.add(f);
 		area += f.getArea();
 
@@ -65,7 +67,15 @@ public class DefaultFaces implements Faces, Iterable<MyFace> {
 	}
 
 	@Override
-	public Iterator<MyFace> iterator() {
+	public Iterator<DefaultFacet> iterator() {
 		return faces.iterator();
+	}
+
+	public void setEpsilon(double epsilon) {
+		m_epsilon = epsilon;
+	}
+	
+	public double getEpsilon() {
+		return m_epsilon;
 	}
 }

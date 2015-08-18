@@ -1,5 +1,5 @@
 package net.imagej.ops.descriptor3d;
 
-public interface Faces {
+public interface Facets {
 	// NB: Marker Interface
 }
