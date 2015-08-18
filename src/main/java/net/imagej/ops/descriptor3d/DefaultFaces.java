@@ -6,38 +6,38 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class DefaultFaces implements Faces, Iterable<DefaultFace> {
+public class DefaultFaces implements Faces, Iterable<MyFace> {
 
-	private ArrayList<DefaultFace> faces;
+	private ArrayList<MyFace> faces;
 	
-	private HashSet<Vector3d> points;
+	private HashSet<Vertex> points;
 	
 	private double area;
 	
-	private Vector3d centroid;
+	private Vertex centroid;
 
 	public DefaultFaces() {
-		faces = new ArrayList<DefaultFace>();
-		points = new HashSet<Vector3d>();
+		faces = new ArrayList<MyFace>();
+		points = new HashSet<Vertex>();
 		area = 0;
 	}
 
-	public ArrayList<DefaultFace> getFaces() {
+	public ArrayList<MyFace> getFaces() {
 		return faces;
 	}
 
-	public void setFaces(ArrayList<DefaultFace> faces) {
+	public void setFaces(ArrayList<MyFace> faces) {
 		this.faces = faces;
 	}
 	
-	public void addFace(DefaultFace f) {
+	public void addFace(MyFace f) {
 		faces.add(f);
 		area += f.getArea();
 
-		points.addAll(Arrays.asList(f.getVertices()));
+		points.addAll(f.getVertices());
 	}
 	
-	public HashSet<Vector3d> getPoints() {
+	public HashSet<Vertex> getPoints() {
 		return points;
 	}
 
@@ -45,12 +45,12 @@ public class DefaultFaces implements Faces, Iterable<DefaultFace> {
 		return area;
 	}
 	
-	public Vector3d getCentroid() {
+	public Vertex getCentroid() {
 		if (centroid == null) {
-			Iterator<Vector3d> it = points.iterator();
+			Iterator<Vertex> it = points.iterator();
 			double x,y,z = y = x = 0;
 			while (it.hasNext()) {
-				Vector3d next = it.next();
+				Vertex next = it.next();
 				x += next.getX();
 				y += next.getY();
 				z += next.getZ();
@@ -59,13 +59,13 @@ public class DefaultFaces implements Faces, Iterable<DefaultFace> {
 			x /= points.size();
 			y /= points.size();
 			z /= points.size();
-			centroid = new Vector3d(x, y, z);
+			centroid = new Vertex(x, y, z);
 		}
 		return centroid;
 	}
 
 	@Override
-	public Iterator<DefaultFace> iterator() {
+	public Iterator<MyFace> iterator() {
 		return faces.iterator();
 	}
 }
