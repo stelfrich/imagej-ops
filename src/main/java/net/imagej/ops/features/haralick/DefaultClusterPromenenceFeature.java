@@ -7,13 +7,13 @@
  * %%
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -25,77 +25,54 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- * 
+ *
  * The views and conclusions contained in the software and documentation are
  * those of the authors and should not be interpreted as representing official
  * policies, either expressed or implied, of any organization.
  * #L%
  */
-package net.imagej.ops.features.haralick;
 
-import net.imagej.ops.Op;
-import net.imagej.ops.features.haralick.HaralickFeatures.ClusterPromenenceFeature;
-import net.imagej.ops.features.haralick.helper.CoocMeanX;
-import net.imagej.ops.features.haralick.helper.CoocMeanY;
-import net.imagej.ops.features.haralick.helper.CooccurrenceMatrix;
-import net.imglib2.type.numeric.real.DoubleType;
+package net.imagej.ops.features.haralick;
 
 import org.scijava.ItemIO;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
+import net.imagej.ops.Op;
+import net.imagej.ops.features.haralick.HaralickFeatures.ClusterPromenenceFeature;
+import net.imagej.ops.features.haralick.helper.CoocResultCalculator;
+import net.imglib2.type.numeric.real.DoubleType;
+
 /**
- * 
  * Implementation of Cluster Promenence Haralick Feature
- * 
+ *
  * @author Andreas Graumann, University of Konstanz
  * @author Christian Dietz, University of Konstanz
- *
  */
-@Plugin(type = Op.class, label = "Haralick: Cluster Promenence", name = "Haralick: Cluster Promenence")
+@Plugin(type = Op.class, label = "Haralick: Cluster Promenence",
+	name = "Haralick: Cluster Promenence")
 public class DefaultClusterPromenenceFeature implements
-ClusterPromenenceFeature<DoubleType> {
+	ClusterPromenenceFeature<DoubleType>
+{
 
-	@Parameter
-	private CooccurrenceMatrix cooc;
-
-	@Parameter
-	private CoocMeanX meanx;
-	
-	@Parameter
-	private CoocMeanY meany;
+	@Parameter(type = ItemIO.INPUT)
+	private CoocResultCalculator ch;
 
 	@Parameter(type = ItemIO.OUTPUT)
 	private DoubleType output;
 
 	@Override
 	public void run() {
-		
-		if (output == null) {
-			output = new DoubleType();
-		}
-		
-		final double[][] matrix = cooc.getOutput();
-		final int nrGrayLevels = matrix.length;
-		final double mux = meanx.getOutput().getRealDouble();
-		final double muy = meany.getOutput().getRealDouble();
-		
-		double res = 0;
-		for (int i = 0; i < nrGrayLevels; i++) {
-			for (int j = 0; j < nrGrayLevels; j++) {
-				res += Math.pow(i + j - mux - muy,4)*matrix[i][j];
-			}
-		}
-		output.setReal(res);
+		this.output = new DoubleType(this.ch.getOutput().getClusterpromence());
 	}
 
 	@Override
 	public DoubleType getOutput() {
-		return output;
+		return this.output;
 	}
 
 	@Override
-	public void setOutput(DoubleType _output) {
-		output = _output;
+	public void setOutput(final DoubleType _output) {
+		this.output = _output;
 	}
 }

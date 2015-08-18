@@ -1,17 +1,19 @@
-package net.imagej.ops.features;
 
-import ij.ImagePlus;
-import ij.io.Opener;
+package net.imagej.ops.features;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+import org.junit.Before;
+import org.scijava.Context;
+
+import ij.ImagePlus;
+import ij.io.Opener;
 import net.imagej.ops.AbstractOpTest;
 import net.imagej.ops.OpMatchingService;
 import net.imagej.ops.OpService;
@@ -23,7 +25,6 @@ import net.imglib2.RealPoint;
 import net.imglib2.img.Img;
 import net.imglib2.img.array.ArrayCursor;
 import net.imglib2.img.array.ArrayImg;
-import net.imglib2.img.array.ArrayImgFactory;
 import net.imglib2.img.array.ArrayImgs;
 import net.imglib2.img.basictypeaccess.array.ByteArray;
 import net.imglib2.img.display.imagej.ImageJFunctions;
@@ -36,11 +37,6 @@ import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.integer.IntType;
 import net.imglib2.type.numeric.integer.UnsignedByteType;
 import net.imglib2.type.numeric.real.FloatType;
-import net.imglib2.view.IntervalView;
-import net.imglib2.view.Views;
-
-import org.junit.Before;
-import org.scijava.Context;
 
 /**
  * @author Daniel Seebacher (University of Konstanz)
@@ -49,8 +45,7 @@ import org.scijava.Context;
 public class AbstractFeatureTest extends AbstractOpTest {
 
 	/**
-	 * Really small number, used for assertEquals with floating or double
-	 * values.
+	 * Really small number, used for assertEquals with floating or double values.
 	 */
 	protected static final double SMALL_DELTA = 1e-07;
 
@@ -87,55 +82,53 @@ public class AbstractFeatureTest extends AbstractOpTest {
 
 	@Before
 	public void setup() {
-		ImageGenerator dataGenerator = new ImageGenerator(SEED);
-		long[] dim = new long[] { 100, 100 };
-		long[] dim3 = new long[] { 100, 100, 30 };
+		final ImageGenerator dataGenerator = new ImageGenerator(SEED);
+		final long[] dim = new long[] { 100, 100 };
+		final long[] dim3 = new long[] { 100, 100, 30 };
 
-		empty = dataGenerator.getEmptyUnsignedByteImg(dim);
-		constant = dataGenerator.getConstantUnsignedByteImg(dim, 15);
-		random = dataGenerator.getRandomUnsignedByteImg(dim);
+		this.empty = dataGenerator.getEmptyUnsignedByteImg(dim);
+		this.constant = dataGenerator.getConstantUnsignedByteImg(dim, 15);
+		this.random = dataGenerator.getRandomUnsignedByteImg(dim);
 
-		empty3d = dataGenerator.getEmptyUnsignedByteImg(dim3);
-		constant3d = dataGenerator.getConstantUnsignedByteImg(dim3, 15);
-		random3d = dataGenerator.getRandomUnsignedByteImg(dim3);
+		this.empty3d = dataGenerator.getEmptyUnsignedByteImg(dim3);
+		this.constant3d = dataGenerator.getConstantUnsignedByteImg(dim3, 15);
+		this.random3d = dataGenerator.getRandomUnsignedByteImg(dim3);
 
 		double[] offset = new double[] { 0.0, 0.0 };
 		double[] radii = new double[] { 20, 40 };
-		ellipse = dataGenerator.getEllipsedBitImage(dim, radii, offset);
+		this.ellipse = dataGenerator.getEllipsedBitImage(dim, radii, offset);
 
 		// translate and rotate ellipse
 		offset = new double[] { 10.0, -10.0 };
 		radii = new double[] { 40, 20 };
-		rotatedEllipse = dataGenerator.getEllipsedBitImage(dim, radii, offset);
+		this.rotatedEllipse = dataGenerator.getEllipsedBitImage(dim, radii, offset);
 
-		fs = context.getService(OpResolverService.class);
+		this.fs = this.context.getService(OpResolverService.class);
 	}
 
 	@Override
 	protected Context createContext() {
 		return new Context(OpService.class, OpMatchingService.class,
-				OpResolverService.class);
+			OpResolverService.class);
 	}
 
 	/**
-	 * 
-	 * Simple class to generate empty, randomly filled or constantly filled
-	 * images of various types.
-	 * 
+	 * Simple class to generate empty, randomly filled or constantly filled images
+	 * of various types.
+	 *
 	 * @author Daniel Seebacher, University of Konstanz.
 	 * @author Andreas Graumann, University of Konstanz
 	 */
 	class ImageGenerator {
 
-		private Random rand;
+		private final Random rand;
 
 		/**
 		 * Create the image generator with a predefined seed.
-		 * 
-		 * @param seed
-		 *            a seed which is used by the random generator.
+		 *
+		 * @param seed a seed which is used by the random generator.
 		 */
-		public ImageGenerator(long seed) {
+		public ImageGenerator(final long seed) {
 			this.rand = new Random(seed);
 		}
 
@@ -147,89 +140,84 @@ public class AbstractFeatureTest extends AbstractOpTest {
 		}
 
 		/**
-		 * 
-		 * @param dim
-		 *            a long array with the desired dimensions of the image
+		 * @param dim a long array with the desired dimensions of the image
 		 * @return an empty {@link Img} of {@link UnsignedByteType}.
 		 */
-		public Img<UnsignedByteType> getEmptyUnsignedByteImg(long[] dim) {
+		public Img<UnsignedByteType> getEmptyUnsignedByteImg(final long[] dim) {
 			return ArrayImgs.unsignedBytes(dim);
 		}
 
 		/**
-		 * 
-		 * @param dim
-		 *            a long array with the desired dimensions of the image
+		 * @param dim a long array with the desired dimensions of the image
 		 * @return an {@link Img} of {@link UnsignedByteType} filled with random
 		 *         values.
 		 */
-		public Img<UnsignedByteType> getRandomUnsignedByteImg(long[] dim) {
-			ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs
-					.unsignedBytes(dim);
+		public Img<UnsignedByteType> getRandomUnsignedByteImg(final long[] dim) {
+			final ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs.unsignedBytes(
+				dim);
 
-			UnsignedByteType type = img.firstElement();
+			final UnsignedByteType type = img.firstElement();
 
-			ArrayCursor<UnsignedByteType> cursor = img.cursor();
+			final ArrayCursor<UnsignedByteType> cursor = img.cursor();
 			while (cursor.hasNext()) {
-				cursor.next().set(rand.nextInt((int) type.getMaxValue()));
+				cursor.next().set(this.rand.nextInt((int) type.getMaxValue()));
 			}
 
-			return (Img<UnsignedByteType>) img;
+			return img;
 		}
 
 		/**
-		 * 
-		 * @param dim
-		 *            a long array with the desired dimensions of the image
-		 * @return an {@link Img} of {@link UnsignedByteType} filled with a
-		 *         constant value.
+		 * @param dim a long array with the desired dimensions of the image
+		 * @return an {@link Img} of {@link UnsignedByteType} filled with a constant
+		 *         value.
 		 */
-		public Img<UnsignedByteType> getConstantUnsignedByteImg(long[] dim,
-				int constant) {
-			ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs
-					.unsignedBytes(dim);
+		public Img<UnsignedByteType> getConstantUnsignedByteImg(final long[] dim,
+			final int constant)
+		{
+			final ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs.unsignedBytes(
+				dim);
 
-			UnsignedByteType type = img.firstElement();
+			final UnsignedByteType type = img.firstElement();
 			if (constant < type.getMinValue() || constant >= type.getMaxValue()) {
-				throw new IllegalArgumentException(
-						"Can't create image for constant [" + constant + "]");
+				throw new IllegalArgumentException("Can't create image for constant [" +
+					constant + "]");
 			}
 
-			ArrayCursor<UnsignedByteType> cursor = img.cursor();
+			final ArrayCursor<UnsignedByteType> cursor = img.cursor();
 			while (cursor.hasNext()) {
 				cursor.next().set(constant);
 			}
 
-			return (Img<UnsignedByteType>) img;
+			return img;
 		}
 
 		/**
-		 * 
 		 * @param dim
 		 * @param radii
 		 * @return an {@link Img} of {@link BitType} filled with a ellipse
 		 */
-		public Img<UnsignedByteType> getEllipsedBitImage(long[] dim,
-				double[] radii, double[] offset) {
+		public Img<UnsignedByteType> getEllipsedBitImage(final long[] dim,
+			final double[] radii, final double[] offset)
+		{
 
 			// create empty bittype image with desired dimensions
-			ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs
-					.unsignedBytes(dim);
+			final ArrayImg<UnsignedByteType, ByteArray> img = ArrayImgs.unsignedBytes(
+				dim);
 
 			// create ellipse
-			EllipseRegionOfInterest ellipse = new EllipseRegionOfInterest();
+			final EllipseRegionOfInterest ellipse = new EllipseRegionOfInterest();
 			ellipse.setRadii(radii);
 
 			// set origin in the center of image
-			double[] origin = new double[dim.length];
+			final double[] origin = new double[dim.length];
 			for (int i = 0; i < dim.length; i++)
 				origin[i] = dim[i] / 2;
 			ellipse.setOrigin(origin);
 
 			// get iterable intervall and cursor of ellipse
-			IterableInterval<UnsignedByteType> ii = ellipse
-					.getIterableIntervalOverROI(img);
-			Cursor<UnsignedByteType> cursor = ii.cursor();
+			final IterableInterval<UnsignedByteType> ii = ellipse
+				.getIterableIntervalOverROI(img);
+			final Cursor<UnsignedByteType> cursor = ii.cursor();
 
 			// fill image with ellipse
 			while (cursor.hasNext()) {
@@ -237,13 +225,13 @@ public class AbstractFeatureTest extends AbstractOpTest {
 				cursor.get().set(255);
 			}
 
-			return (Img<UnsignedByteType>) img;
+			return img;
 		}
 	}
 
 	public static Polygon createPolygon() {
 		// create a polygon
-		Polygon p = new Polygon();
+		final Polygon p = new Polygon();
 
 		p.add(new RealPoint(444.0d, 183.0d));
 		p.add(new RealPoint(445.0d, 183.0d));
@@ -901,53 +889,58 @@ public class AbstractFeatureTest extends AbstractOpTest {
 		return p;
 	}
 
-	protected LabelRegion<?> createLabelRegion2D()
-			throws MalformedURLException, IOException {
+	protected LabelRegion<?> createLabelRegion2D() throws MalformedURLException,
+		IOException
+	{
 		// read simple polygon image
-		BufferedImage read = ImageIO.read(AbstractFeatureTest.class
-				.getResourceAsStream("cZgkFsK.png"));
+		final BufferedImage read = ImageIO.read(AbstractFeatureTest.class
+			.getResourceAsStream("cZgkFsK.png"));
 
-		ImgLabeling<String, IntType> img = new ImgLabeling<String, IntType>(
-				ArrayImgs.ints(read.getWidth(), read.getHeight()));
+		final ImgLabeling<String, IntType> img = new ImgLabeling<String, IntType>(
+			ArrayImgs.ints(read.getWidth(), read.getHeight()));
 
 		// at each black pixel of the polygon add a "1" label.
-		RandomAccess<LabelingType<String>> randomAccess = img.randomAccess();
+		final RandomAccess<LabelingType<String>> randomAccess = img.randomAccess();
 		for (int y = 0; y < read.getHeight(); y++) {
 			for (int x = 0; x < read.getWidth(); x++) {
 				randomAccess.setPosition(new int[] { x, y });
-				Color c = new Color(read.getRGB(x, y));
+				final Color c = new Color(read.getRGB(x, y));
 				if (c.getRed() == Color.black.getRed()) {
 					randomAccess.get().add("1");
 				}
 			}
 		}
 
-		LabelRegions<String> labelRegions = new LabelRegions<String>(img);
+		final LabelRegions<String> labelRegions = new LabelRegions<String>(img);
 		return labelRegions.getLabelRegion("1");
 
 	}
 
-	protected LabelRegion<?> createLabelRegion3D()
-			throws MalformedURLException, IOException {
-		
-		Opener o = new Opener();
-		ImagePlus imp = o.openImage("/home/tibuch/Shape3D.tif");
-		
-		ImgLabeling<String, IntType> labeling = new ImgLabeling<String, IntType>(ArrayImgs.ints(100, 100, 100));
-		
-		RandomAccess<LabelingType<String>> ra = labeling.randomAccess();
-		Img<FloatType> img = ImageJFunctions.convertFloat(imp);
-		Cursor<FloatType> c = img.cursor();
+	protected LabelRegion<?> createLabelRegion3D() throws MalformedURLException,
+		IOException
+	{
+
+		final Opener o = new Opener();
+		final ImagePlus imp = o.openImage(AbstractFeatureTest.class.getResource(
+			"Shape3D.tif").getPath());
+
+		final ImgLabeling<String, IntType> labeling =
+			new ImgLabeling<String, IntType>(ArrayImgs.ints(100, 100, 100));
+
+		final RandomAccess<LabelingType<String>> ra = labeling.randomAccess();
+		final Img<FloatType> img = ImageJFunctions.convertFloat(imp);
+		final Cursor<FloatType> c = img.cursor();
 		while (c.hasNext()) {
-			FloatType item = c.next();
-			int[] pos = new int[3];
+			final FloatType item = c.next();
+			final int[] pos = new int[3];
 			c.localize(pos);
 			ra.setPosition(pos);
 			if (item.get() > 0) {
 				ra.get().add("1");
 			}
 		}
-		LabelRegions<String> labelRegions = new LabelRegions<String>(labeling);
+		final LabelRegions<String> labelRegions = new LabelRegions<String>(
+			labeling);
 
 		return labelRegions.getLabelRegion("1");
 

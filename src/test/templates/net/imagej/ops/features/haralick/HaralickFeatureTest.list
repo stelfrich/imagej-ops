@@ -16,7 +16,7 @@ ops = ```
   [iface: "SumEntropy",          empty2d: -0.0,		 random2d: 1.0574462007349505, 		constant2d: 0, 		empty3d: 0.0, 	random3d: 1.058331669907167, 	constant3d: 0.0],
   [iface: "SumVariance",         empty2d: 0.0,         random2d: 8.07025588205285,			constant2d: 0.0, 	empty3d: 0.0, 	random3d: 8.082561473622349, 		constant3d: 0.0],
   [iface: "Variance",            empty2d: 0.0,         random2d: 4.085721156004489, 			constant2d: 0.0, 	empty3d: 0.0, 	random3d: 4.053886887109363, 		constant3d: 0.0],
-  [iface: "MaxProbability",      empty2d: 0.0,         random2d: 0.0, 						constant2d: 0.0, 	empty3d: 0.0, 	random3d: 0.0, 		constant3d: 0.0],
+  [iface: "MaxProbability",      empty2d: 1.0,         random2d: 0.023333333333333334, 						constant2d: 1.0, 	empty3d: 1.0, 	random3d: 0.02127133402995472, 		constant3d: 1.0],
   [iface: "TextureHomogenity",   empty2d: 1.0,         random2d: 0.41295262145262135, 			constant2d: 1.0, 	empty3d: 1.0, 	random3d: 0.4164961105305933, 		constant3d: 1.0]
 ]
 ```
