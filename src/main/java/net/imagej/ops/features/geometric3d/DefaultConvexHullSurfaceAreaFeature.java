@@ -8,9 +8,10 @@ import org.scijava.plugin.Plugin;
 import net.imagej.ops.Op;
 import net.imagej.ops.descriptor3d.QuickHull3D;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.ConvexHullSurfaceAreaFeature;
+import net.imagej.ops.statistics.Geometric3DOps.ConvexHullSurfaceArea;
 import net.imglib2.type.numeric.real.DoubleType;
 
-@Plugin(type = Op.class, name = ConvexHullSurfaceAreaFeature.NAME, label = ConvexHullSurfaceAreaFeature.LABEL, priority = Priority.VERY_HIGH_PRIORITY)
+@Plugin(type = Op.class, name = ConvexHullSurfaceArea.NAME, label = ConvexHullSurfaceArea.LABEL, priority = Priority.VERY_HIGH_PRIORITY)
 public class DefaultConvexHullSurfaceAreaFeature implements ConvexHullSurfaceAreaFeature<DoubleType>{
 
 	@Parameter(type = ItemIO.INPUT)
