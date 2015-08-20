@@ -35,6 +35,10 @@ ops = ```
   [name: "Sphericity",      iface: "Sphericity"],
   [name: "MainElongation",  iface: "MainElongation"],
   [name: "MedianElongation",iface: "MedianElongation"],
+  [name: "ConvexHullSurfaceArea", iface: "ConvexHullSurfaceArea"],
+  [name: "Convexity",       iface: "Convexity"],
+  [name: "Solidity",        iface: "Solidity"],
+  [name: "Rugosity",        iface: "Rugosity"],
   [name: "Spareness",       iface: "Spareness"]
 ]
 ```

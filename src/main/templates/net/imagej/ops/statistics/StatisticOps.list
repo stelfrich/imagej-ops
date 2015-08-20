@@ -33,12 +33,13 @@ ops = ```
   [name: "SurfacePixel",    iface: "SurfacePixel"],
   [name: "Compactness",     iface: "Compactness"],
   [name: "Sphericity",      iface: "Sphericity"],
-  [name: "CentroidX",       iface: "CentroidX"],
-  [name: "CentroidY",       iface: "CentroidY"],
-  [name: "CentroidZ",       iface: "CentroidZ"],
   [name: "MainElongation",  iface: "MainElongation"],
   [name: "MedianElongation",iface: "MedianElongation"],
-  [name: "Spareness",       iface: "Spareness"]
+  [name: "Spareness",       iface: "Spareness"],
+  [name: "ConvexHullSurfaceArea", iface: "ConvexHullSurfaceArea"],
+  [name: "Solidity",	iface: "Solidity"],
+  [name: "Convexity",	iface: "Convexity"],
+  [name: "Rugosity",	iface: "Rugosity"]
 ]
 ```
 
