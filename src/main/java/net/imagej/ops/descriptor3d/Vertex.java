@@ -1,10 +1,8 @@
 package net.imagej.ops.descriptor3d;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 
@@ -14,12 +12,11 @@ import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
  *
  * @author Tim-Oliver Buchholz, University of Konstanz
  */
-class Vertex extends Vector3D {
+public class Vertex extends Vector3D {
 
-	
 	private double m_distanceToFaceInFront = 0;
 	
-	private List<DefaultFacet> m_facesInFront = new ArrayList<DefaultFacet>();
+	private List<TriangularFacet> m_facesInFront = new ArrayList<TriangularFacet>();
 	
 	public Vertex(double x, double y, double z) {
 		super(x, y, z);
@@ -33,7 +30,7 @@ class Vertex extends Vector3D {
 		this.m_distanceToFaceInFront = m_distanceToFaceInFront;
 	}
 
-	public void addFaceInFront(DefaultFacet f) {
+	public void addFaceInFront(TriangularFacet f) {
 		m_facesInFront.add(f);
 	}
 	
@@ -43,16 +40,15 @@ class Vertex extends Vector3D {
 	
 	
 	public List<Vertex> getPointsInFront() {
-		Iterator<DefaultFacet> it = m_facesInFront.iterator();
+		Iterator<TriangularFacet> it = m_facesInFront.iterator();
 		List<Vertex> l = new ArrayList<Vertex>();
 		while (it.hasNext()) {
-			l.addAll(it.next().getPointsInFront());
+			l.addAll(it.next().getVerticesInFront());
 		}
 		return l;
 	}
 
-	public List<DefaultFacet> getFacesInFront() {
-		// TODO Auto-generated method stub
+	public List<TriangularFacet> getFacesInFront() {
 		return m_facesInFront;
 	}
 
