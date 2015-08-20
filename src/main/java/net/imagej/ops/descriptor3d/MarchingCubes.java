@@ -127,7 +127,7 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 				/* Create the triangle */
 				for (i = 0; TRIANGLE_TABLE[cubeindex][i] != -1; i += 3) {
 
-					DefaultFacet face = new DefaultFacet(
+					TriangularFacet face = new TriangularFacet(
 							new Vertex(
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i]][1],

@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 
-public class DefaultFacets implements Facets, Iterable<DefaultFacet> {
+public class DefaultFacets implements Facets, Iterable<TriangularFacet> {
 
-	private ArrayList<DefaultFacet> faces;
+	private ArrayList<TriangularFacet> faces;
 	
 	private HashSet<Vertex> points;
 	
@@ -19,20 +19,20 @@ public class DefaultFacets implements Facets, Iterable<DefaultFacet> {
 	private double m_epsilon;
 
 	public DefaultFacets() {
-		faces = new ArrayList<DefaultFacet>();
+		faces = new ArrayList<TriangularFacet>();
 		points = new HashSet<Vertex>();
 		area = 0;
 	}
 
-	public ArrayList<DefaultFacet> getFacets() {
+	public ArrayList<TriangularFacet> getFacets() {
 		return faces;
 	}
 
-	public void setFaces(ArrayList<DefaultFacet> faces) {
+	public void setFaces(ArrayList<TriangularFacet> faces) {
 		this.faces = faces;
 	}
 	
-	public void addFace(DefaultFacet f) {
+	public void addFace(TriangularFacet f) {
 		faces.add(f);
 		area += f.getArea();
 
@@ -67,7 +67,7 @@ public class DefaultFacets implements Facets, Iterable<DefaultFacet> {
 	}
 
 	@Override
-	public Iterator<DefaultFacet> iterator() {
+	public Iterator<TriangularFacet> iterator() {
 		return faces.iterator();
 	}
 
@@ -77,5 +77,9 @@ public class DefaultFacets implements Facets, Iterable<DefaultFacet> {
 	
 	public double getEpsilon() {
 		return m_epsilon;
+	}
+
+	public void setPoints(HashSet<Vertex> points) {
+		this.points = points;
 	}
 }

@@ -28,7 +28,7 @@ import net.imglib2.RandomAccessibleInterval;
  *
  */
 @Plugin(type = ConvexHull.class, name = ConvexHull.NAME)
-public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFacets> implements ConvexHull {
+public class QuickHull3D extends AbstractOutputFunction<MarchingCubes<?>, DefaultFacets> implements ConvexHull {
 
 	/**
 	 * Vertices which are not part of the convex hull.
@@ -38,12 +38,12 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	/**
 	 * Created facets.
 	 */
-	private List<DefaultFacet> m_facets;
+	private List<TriangularFacet> m_facets;
 
 	/**
 	 * Facets with points in front.
 	 */
-	private List<DefaultFacet> m_facetsWithPointInFront;
+	private List<TriangularFacet> m_facetsWithPointInFront;
 
 	/**
 	 * Minimum distance between a point and a facet.
@@ -56,18 +56,18 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	private final double DOUBLE_PREC = 2.2204460492503131e-16;
 
 	@Override
-	public DefaultFacets createOutput(List<Vertex> input) {
+	public DefaultFacets createOutput(MarchingCubes<?> input) {
 		return new DefaultFacets();
 	}
 
 	@Override
-	protected DefaultFacets safeCompute(List<Vertex> input,
+	protected DefaultFacets safeCompute(MarchingCubes<?> input,
 			DefaultFacets output) {
-		m_vertices = new HashSet<Vertex>(input);
-		m_facets = new ArrayList<DefaultFacet>();
-		m_facetsWithPointInFront = new ArrayList<DefaultFacet>();
+		m_vertices = new HashSet<Vertex>(input.getOutput().getPoints());
+		m_facets = new ArrayList<TriangularFacet>();
+		m_facetsWithPointInFront = new ArrayList<TriangularFacet>();
 		computeHull();
-		for (DefaultFacet f : m_facets) {
+		for (TriangularFacet f : m_facets) {
 			output.addFace(f);
 		}
 		output.setEpsilon(m_epsilon);
@@ -77,21 +77,12 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	/**
 	 * Compute the convex hull.
 	 */
-	public void computeHull() {
+	private void computeHull() {
 		createSimplex();
 		while (!m_facetsWithPointInFront.isEmpty()) {
-			DefaultFacet next = m_facetsWithPointInFront.remove(0);
+			TriangularFacet next = m_facetsWithPointInFront.remove(0);
 			replaceFacet(next);
 		}
-	}
-
-	/**
-	 * Get the facets of the convex hull.
-	 * 
-	 * @return the facets
-	 */
-	public DefaultFacet[] getFacets() {
-		return m_facets.toArray(new DefaultFacet[m_facets.size()]);
 	}
 
 	/**
@@ -101,10 +92,10 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 *            the facet to replace. At least one point must be in front of
 	 *            next.
 	 */
-	private void replaceFacet(DefaultFacet facet) {
+	private void replaceFacet(TriangularFacet facet) {
 		Vertex v = facet.getMaximumDistanceVertex();
-		DefaultFacet horizon = computeHorizon(facet, v);
-		List<DefaultFacet> newFaces = createFacets(horizon, v);
+		Horizon horizon = computeHorizon(facet, v);
+		List<TriangularFacet> newFaces = createFacets(horizon, v);
 		assignPointsToFacets(newFaces);
 	}
 
@@ -117,8 +108,8 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 *            point which is added to the convex hull
 	 * @return new created facets
 	 */
-	private List<DefaultFacet> createFacets(DefaultFacet horizon, Vertex vTop) {
-		List<DefaultFacet> newFacets = new ArrayList<DefaultFacet>();
+	private List<TriangularFacet> createFacets(Horizon horizon, Vertex vTop) {
+		List<TriangularFacet> newFacets = new ArrayList<TriangularFacet>();
 		Vertex vLeft, vRight;
 
 		// triangles 1 to n
@@ -126,9 +117,9 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 			vLeft = horizon.getVertex(i - 1);
 			vRight = horizon.getVertex(i);
 
-			DefaultFacet f = new DefaultFacet(vRight, vTop, vLeft);
+			TriangularFacet f = new TriangularFacet(vRight, vTop, vLeft);
 
-			setNeighborZero(f, horizon.getNeighbor(i));
+			setNeighborZero(f, (TriangularFacet)horizon.getNeighbor(i));
 
 			newFacets.add(f);
 		}
@@ -138,9 +129,9 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 		vRight = horizon.getVertex(0);
 		vLeft = horizon.getLastVertex();
 
-		DefaultFacet f = new DefaultFacet(vRight, vTop, vLeft);
+		TriangularFacet f = new TriangularFacet(vRight, vTop, vLeft);
 
-		setNeighborZero(f, horizon.getNeighbor(0));
+		setNeighborZero(f, (TriangularFacet)horizon.getNeighbor(0));
 
 		newFacets.add(f);
 
@@ -156,7 +147,7 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 * @param newFacets
 	 *            the triangles
 	 */
-	private void connectTriangles(List<DefaultFacet> newFacets) {
+	private void connectTriangles(List<TriangularFacet> newFacets) {
 		int lastFacetIndex = newFacets.size() - 1;
 		for (int i = 1; i < lastFacetIndex; i++) {
 			newFacets.get(i).setNeighbor(1, newFacets.get(i + 1));
@@ -177,7 +168,7 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 * @param n
 	 *            the neighbor facet.
 	 */
-	private void setNeighborZero(DefaultFacet f, DefaultFacet n) {
+	private void setNeighborZero(TriangularFacet f, TriangularFacet n) {
 		int vertexIndex = n.indexOfVertex(f.getVertex(2));
 		n.replaceNeighbor(vertexIndex, f);
 
@@ -194,35 +185,36 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 *            a point outside of the convex hull
 	 * @return facet containing all facets which are in front of vTop
 	 */
-	private DefaultFacet computeHorizon(DefaultFacet frontFacet, Vertex vTop) {
+	private Horizon computeHorizon(TriangularFacet frontFacet, Vertex vTop) {
 		// Points which are in front have to be reassigned after all new facets
 		// are constructed.
-		m_vertices.addAll(frontFacet.getPointsInFront());
+		m_vertices.addAll(frontFacet.getVerticesInFront());
 
 		// frontFacet is not a result facet. Remove it from result list.
 		m_facets.remove(frontFacet);
 
-		DefaultFacet merge = nextFacetToMerge(frontFacet, vTop);
+		Horizon h = new Horizon(frontFacet);
+		TriangularFacet merge = nextFacetToMerge(h, vTop);
 		while (merge != null) {
 			// This points have to be reassigned as well.
-			m_vertices.addAll(merge.getPointsInFront());
+			m_vertices.addAll(merge.getVerticesInFront());
 			// This face has some points in front and therefore is not a result
 			// face.
 			m_facets.remove(merge);
 			// After this step this facet is merged with another facet.
 			m_facetsWithPointInFront.remove(merge);
 
-			if (frontFacet.containsAll(merge.getVertices())) {
+			if (h.containsAll(merge.getVertices())) {
 				updateNeighbors(frontFacet, merge);
-				frontFacet.complexMerge(merge);
+				h.complexMerge(merge);
 			} else {
 				updateNeighbors(frontFacet, merge);
-				frontFacet.simpleMerge(merge);
+				h.simpleMerge(merge);
 			}
-			merge = nextFacetToMerge(frontFacet, vTop);
+			merge = nextFacetToMerge(h, vTop);
 		}
 
-		return frontFacet;
+		return h;
 	}
 
 	/**
@@ -234,8 +226,8 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 * @param merge
 	 *            the facet which will be merged with frontFacet.
 	 */
-	private void updateNeighbors(DefaultFacet frontFacet, DefaultFacet merge) {
-		for (DefaultFacet f : merge.getNeighbors()) {
+	private void updateNeighbors(TriangularFacet frontFacet, TriangularFacet merge) {
+		for (AbstractPolygon f : merge.getNeighbors()) {
 			if (!f.equals(frontFacet)) {
 				f.replaceNeighbor(f.indexOfNeighbor(merge), frontFacet);
 			}
@@ -251,11 +243,11 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 *            point which is added to the convex hull
 	 * @return neighboring facet of front or null if no facet is in front
 	 */
-	private DefaultFacet nextFacetToMerge(DefaultFacet frontFacet,
+	private TriangularFacet nextFacetToMerge(Horizon frontFacet,
 			Vertex vTop) {
-		Iterator<DefaultFacet> it = frontFacet.getNeighbors().iterator();
+		Iterator<AbstractPolygon> it = frontFacet.getNeighbors().iterator();
 		while (it.hasNext()) {
-			DefaultFacet f = it.next();
+			TriangularFacet f = (TriangularFacet)it.next();
 			if (f.distanceToPlane(vTop) > m_epsilon) {
 				// if frontFacet contains all vertices of f it either is
 				// connected
@@ -305,17 +297,17 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 	 * @param facets
 	 *            which could have a point in front
 	 */
-	private void assignPointsToFacets(List<DefaultFacet> facets) {
+	private void assignPointsToFacets(List<TriangularFacet> facets) {
 		Iterator<Vertex> vertexIt = m_vertices.iterator();
 		while (vertexIt.hasNext()) {
 			Vertex v = vertexIt.next();
 
-			Iterator<DefaultFacet> facetIt = facets.iterator();
-			DefaultFacet maxFacet = null;
+			Iterator<TriangularFacet> facetIt = facets.iterator();
+			TriangularFacet maxFacet = null;
 			double maxdis = m_epsilon;
 
 			while (facetIt.hasNext()) {
-				DefaultFacet f = facetIt.next();
+				TriangularFacet f = facetIt.next();
 				double distanceToPlane = f.distanceToPlane(v);
 				// point is assigned to the facet with maximum distance
 				if (distanceToPlane > maxdis) {
@@ -327,7 +319,7 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 			// If maxFacet == null this vertex is behind all facets and
 			// therefore on the inside of the convex hull.
 			if (maxFacet != null) {
-				maxFacet.setPointInFront(v, maxdis);
+				maxFacet.setVertexInFront(v, maxdis);
 				if (!m_facetsWithPointInFront.contains(maxFacet)) {
 					m_facetsWithPointInFront.add(maxFacet);
 				}
@@ -364,20 +356,20 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 
 		m_vertices.remove(v3);
 
-		DefaultFacet f0 = new DefaultFacet(v0, v1, v2);
+		TriangularFacet f0 = new TriangularFacet(v0, v1, v2);
 		if (f0.distanceToPlane(v3) > m_epsilon) {
 			// change triangle orientation to counter clockwise
 			Vertex tmp = v1;
 			v1 = v2;
 			v2 = tmp;
-			f0 = new DefaultFacet(v0, v1, v2);
+			f0 = new TriangularFacet(v0, v1, v2);
 		}
 		// v3 is behind f0
 		assert f0.distanceToPlane(v3) < m_epsilon;
 
-		DefaultFacet f1 = new DefaultFacet(v1, v0, v3);
-		DefaultFacet f2 = new DefaultFacet(v2, v1, v3);
-		DefaultFacet f3 = new DefaultFacet(v0, v2, v3);
+		TriangularFacet f1 = new TriangularFacet(v1, v0, v3);
+		TriangularFacet f2 = new TriangularFacet(v2, v1, v3);
+		TriangularFacet f3 = new TriangularFacet(v0, v2, v3);
 
 		f0.setNeighbor(0, f3);
 		f0.setNeighbor(1, f1);
@@ -400,7 +392,7 @@ public class QuickHull3D extends AbstractOutputFunction<List<Vertex>, DefaultFac
 		assert f2.distanceToPlane(v0) < m_epsilon;
 		assert f3.distanceToPlane(v1) < m_epsilon;
 
-		List<DefaultFacet> newFacets = new ArrayList<DefaultFacet>();
+		List<TriangularFacet> newFacets = new ArrayList<TriangularFacet>();
 		newFacets.add(f0);
 		newFacets.add(f1);
 		newFacets.add(f2);
