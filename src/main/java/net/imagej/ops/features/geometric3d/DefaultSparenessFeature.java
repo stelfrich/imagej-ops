@@ -7,14 +7,22 @@ import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.Op;
 import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
+import net.imagej.ops.features.FeatureSet;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.MainElongationFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.MedianElongationFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.SparenessFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.VolumeFeature;
+import net.imagej.ops.statistics.Geometric3DOps.Spareness;
 import net.imglib2.type.logic.BoolType;
 import net.imglib2.type.numeric.real.DoubleType;
 
-@Plugin(type = Op.class, name = DefaultSparenessFeature.NAME, label = DefaultSparenessFeature.LABEL, priority = Priority.VERY_HIGH_PRIORITY)
+/**
+ * Generic implementation of {@link SparenessFeature}. Use {@link FeatureSet} to
+ * compile this {@link Op}.
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz.
+ */
+@Plugin(type = Op.class, name = Spareness.NAME, label = Spareness.LABEL, priority = Priority.VERY_HIGH_PRIORITY)
 public class DefaultSparenessFeature implements SparenessFeature<DoubleType> {
 
 	@Parameter(type = ItemIO.INPUT)
@@ -44,7 +52,7 @@ public class DefaultSparenessFeature implements SparenessFeature<DoubleType> {
 
 	@Override
 	public void run() {
-		double r1 = Math.sqrt(5.0 * multivar.getOutput().getEigenvalue(2));
+		double r1 = Math.sqrt(5.0 * multivar.getOutput().getEigenvalue(0));
 		double r2 = r1 / mainElongation.getOutput().get();
 		double r3 = r2 / medianElongation.getOutput().get();
 
