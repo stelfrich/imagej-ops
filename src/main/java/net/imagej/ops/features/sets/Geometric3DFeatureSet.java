@@ -7,13 +7,15 @@ import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.OpRef;
 import net.imagej.ops.descriptor3d.BitTypeVertexInterpolator;
+import net.imagej.ops.descriptor3d.DefaultCentroid3D;
 import net.imagej.ops.descriptor3d.MarchingCubes;
 import net.imagej.ops.descriptor3d.QuickHull3D;
 import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
 import net.imagej.ops.features.FeatureSet;
 import net.imagej.ops.features.geometric3d.DefaultConvexHullSurfaceAreaFeature;
-import net.imagej.ops.features.geometric3d.ConvexHullVolumeFeature;
+import net.imagej.ops.features.geometric3d.DefaultConvexHullSurfacePixelFeature;
+import net.imagej.ops.features.geometric3d.DefaultConvexHullVolumeFeature;
 import net.imagej.ops.features.geometric3d.DefaultCompactnessFeature;
 import net.imagej.ops.features.geometric3d.DefaultConvexityFeature;
 import net.imagej.ops.features.geometric3d.DefaultMainElongationFeature;
@@ -46,7 +48,8 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 		outputOps.add(createOpRef(DefaultMedianElongationFeature.class));
 		outputOps.add(createOpRef(DefaultSparenessFeature.class));
 		outputOps.add(createOpRef(DefaultConvexHullSurfaceAreaFeature.class));
-		outputOps.add(createOpRef(ConvexHullVolumeFeature.class));
+		outputOps.add(createOpRef(DefaultConvexHullSurfacePixelFeature.class));
+		outputOps.add(createOpRef(DefaultConvexHullVolumeFeature.class));
 		outputOps.add(createOpRef(DefaultConvexityFeature.class));
 		outputOps.add(createOpRef(DefaultSolidityFeature.class));
 		outputOps.add(createOpRef(DefaultRugosityFeature.class));
@@ -59,6 +62,7 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 		hiddenOps.add(createOpRef(MarchingCubes.class, 1, new BitTypeVertexInterpolator()));
 		hiddenOps.add(createOpRef(SecondMultiVariate3D.class));
 		hiddenOps.add(createOpRef(QuickHull3D.class));
+		hiddenOps.add(createOpRef(DefaultCentroid3D.class));
 		return hiddenOps;
 	}
 
