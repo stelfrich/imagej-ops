@@ -3,6 +3,7 @@ package net.imagej.ops.descriptor3d;
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Contingent;
 import net.imagej.ops.Op;
+import net.imagej.ops.features.firstorder.DefaultMoment2AboutMeanFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.VolumeFeature;
 import net.imglib2.Cursor;
 import net.imglib2.roi.IterableRegion;
@@ -20,6 +21,9 @@ public class SecondMultiVariate3D<B extends BooleanType<B>> extends
 	@Parameter(type = ItemIO.INPUT)
 	private VolumeFeature<DoubleType> volume;
 	
+	@Parameter(type = ItemIO.INPUT)
+	private DefaultCentroid3D<B> centroid;
+	
 	@Override
 	public CovarianceOf2ndMultiVariate3D createOutput(IterableRegion<B> input) {
 		return new CovarianceOf2ndMultiVariate3D();
@@ -29,9 +33,9 @@ public class SecondMultiVariate3D<B extends BooleanType<B>> extends
 	protected CovarianceOf2ndMultiVariate3D safeCompute(IterableRegion<B> input, CovarianceOf2ndMultiVariate3D output) {
 		Cursor<B> c = input.localizingCursor();
 		int[] pos = new int[3];
-		double mX = (input.max(0) + input.min(0)) / 2;
-		double mY = (input.max(1) + input.min(1)) / 2;
-		double mZ = (input.max(2) + input.min(2)) / 2;
+		double mX = centroid.getOutput().getX();
+		double mY = centroid.getOutput().getY();
+		double mZ = centroid.getOutput().getZ();
 		while (c.hasNext()) {
 			c.next();
 			c.localize(pos);
