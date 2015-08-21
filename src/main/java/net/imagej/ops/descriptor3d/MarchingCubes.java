@@ -11,6 +11,10 @@ import net.imglib2.type.logic.BoolType;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.scijava.ItemIO;
 import org.scijava.plugin.Parameter;
@@ -140,9 +144,7 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][0],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][1],
 									vertlist[TRIANGLE_TABLE[cubeindex][i + 2]][2]));
-					if (face.getArea() > 0) {
-						output.addFace(face);
-					}
+					output.addFace(face);
 				}
 			}
 		}
