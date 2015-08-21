@@ -28,18 +28,20 @@ namespace = "geometric3D"
 authors = [Christian Dietz, Daniel Seebacher, Tim-Oliver Buchholz]
 ops = ```
 [
-  [name: "Volume",	        iface: "Volume"],
-  [name: "SurfaceArea",     iface: "SurfaceArea"],
-  [name: "SurfacePixel",    iface: "SurfacePixel"],
-  [name: "Compactness",     iface: "Compactness"],
-  [name: "Sphericity",      iface: "Sphericity"],
-  [name: "MainElongation",  iface: "MainElongation"],
-  [name: "MedianElongation",iface: "MedianElongation"],
-  [name: "Spareness",       iface: "Spareness"],
-  [name: "ConvexHullSurfaceArea", iface: "ConvexHullSurfaceArea"],
-  [name: "Solidity",	iface: "Solidity"],
-  [name: "Convexity",	iface: "Convexity"],
-  [name: "Rugosity",	iface: "Rugosity"]
+  [name: "Volume",	               iface: "Volume"],
+  [name: "SurfaceArea",            iface: "SurfaceArea"],
+  [name: "SurfacePixel",           iface: "SurfacePixel"],
+  [name: "Compactness",            iface: "Compactness"],
+  [name: "Sphericity",             iface: "Sphericity"],
+  [name: "MainElongation",         iface: "MainElongation"],
+  [name: "MedianElongation",       iface: "MedianElongation"],
+  [name: "Spareness",              iface: "Spareness"],
+  [name: "ConvexHullSurfaceArea",  iface: "ConvexHullSurfaceArea"],
+  [name: "ConvexHullSurfacePixel",  iface: "ConvexHullSurfacePixel"],
+  [name: "ConvexHullVolume",       iface: "ConvexHullVolume"],
+  [name: "Solidity",	           iface: "Solidity"],
+  [name: "Convexity",	           iface: "Convexity"],
+  [name: "Rugosity",	           iface: "Rugosity"]
 ]
 ```
 
