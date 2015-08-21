@@ -922,10 +922,10 @@ public class AbstractFeatureTest extends AbstractOpTest {
 
 		final Opener o = new Opener();
 		final ImagePlus imp = o.openImage(AbstractFeatureTest.class.getResource(
-			"Shape3D.tif").getPath());
+			"3d_geometric_features_testlabel.tif").getPath());
 
 		final ImgLabeling<String, IntType> labeling =
-			new ImgLabeling<String, IntType>(ArrayImgs.ints(100, 100, 100));
+			new ImgLabeling<String, IntType>(ArrayImgs.ints(104, 102, 81));
 
 		final RandomAccess<LabelingType<String>> ra = labeling.randomAccess();
 		final Img<FloatType> img = ImageJFunctions.convertFloat(imp);
