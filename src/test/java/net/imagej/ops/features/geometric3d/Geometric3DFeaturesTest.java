@@ -9,21 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
 import net.imagej.ops.features.AbstractFeatureTest;
 import net.imagej.ops.features.geometric.Geometric2DFeatures.AreaFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.CompactnessFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.ConvexHullVolumeFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.MainElongationFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.MedianElongationFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.SparenessFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.SphericityFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.SurfaceAreaFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.SurfacePixelFeature;
-import net.imagej.ops.features.geometric.Geometric3DFeatures.VolumeFeature;
 import net.imagej.ops.features.sets.Geometric3DFeatureSet;
 import net.imagej.ops.statistics.Geometric3DOps.Compactness;
 import net.imagej.ops.statistics.Geometric3DOps.ConvexHullSurfaceArea;
@@ -43,6 +31,9 @@ import net.imglib2.roi.Regions;
 import net.imglib2.roi.labeling.LabelRegion;
 import net.imglib2.type.numeric.real.DoubleType;
 import net.imglib2.util.Pair;
+
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * To get comparable values with ImageJ I used the same label as I read in
@@ -155,8 +146,7 @@ public class Geometric3DFeaturesTest extends AbstractFeatureTest {
 	public void testSurfaceArea() {
 		// value taken from imagej
 		// The delta is relatively big because they use float numbers in imagej
-		// and my
-		// implementation is based on doubles.
+		// and my implementation is based on doubles.
 		assertEquals(SurfaceArea.NAME, 21025.018, results.get(SurfaceArea.NAME),
 				0.186);
 	}
@@ -219,7 +209,8 @@ public class Geometric3DFeaturesTest extends AbstractFeatureTest {
 	public void testMedianElongation() {
 		// value taken from imagej
 		assertEquals(MedianElongation.NAME, 1.126,
-				results.get(MedianElongation.NAME), 0.01);
+				results.get(MedianElongation.NAME), 
+				AbstractFeatureTest.BIG_DELTA);
 	}
 
 	/**

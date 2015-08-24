@@ -125,7 +125,12 @@ public abstract class AbstractPolygon {
 		m_neighbors.add(i, f);
 	}
 	
-	public int indexOfNeighbor(TriangularFacet merge) {
-		return m_neighbors.indexOf(merge);
+	/**
+	 * Get index of a neighbor.
+	 * @param facet the neighboring facet
+	 * @return the index or -1 if facet is not a neighbor
+	 */
+	public int indexOfNeighbor(TriangularFacet facet) {
+		return m_neighbors.indexOf(facet);
 	}
 }

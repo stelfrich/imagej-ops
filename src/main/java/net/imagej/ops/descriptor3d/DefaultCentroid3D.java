@@ -9,6 +9,13 @@ import net.imglib2.Cursor;
 import net.imglib2.roi.IterableRegion;
 import net.imglib2.type.BooleanType;
 
+/**
+ * This {@link Op} computes the centroid of a {@link IterableRegion} (Label).
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz.
+ *
+ * @param <B> a Boolean Type
+ */
 @Plugin(type = Op.class, name = "centroid3d")
 public class DefaultCentroid3D<B extends BooleanType<B>>
 		extends

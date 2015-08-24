@@ -1,20 +1,16 @@
 package net.imagej.ops.descriptor3d;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.imagej.ops.AbstractOutputFunction;
+import net.imagej.ops.geometric.GeometricOps.ConvexHull;
+
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.scijava.plugin.Plugin;
-
-import net.imagej.ops.AbstractOutputFunction;
-import net.imagej.ops.Op;
-import net.imagej.ops.OutputFunction;
-import net.imagej.ops.geometric.GeometricOps.ConvexHull;
-import net.imglib2.RandomAccessibleInterval;
 
 /**
  * This quickhull implementation is based on the paper
