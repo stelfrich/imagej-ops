@@ -6,13 +6,15 @@ import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.Op;
 
+/**
+ * Linearly interpolate the position where an isosurface cuts an edge
+ * between two vertices, each with their own scalar value
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz
+ */
 @Plugin(type = Op.class, name = "defaultvertexinterpolator")
 public class DefaultVertexInterpolator extends AbstractVertexInterpolator {
 
-	/**
-	 * Linearly interpolate the position where an isosurface cuts an edge
-	 * between two vertices, each with their own scalar value
-	 */
 	
 	@Parameter(type = ItemIO.INPUT)
 	double isolevel;

@@ -15,6 +15,15 @@ import net.imglib2.type.logic.BoolType;
 import net.imglib2.view.ExtendedRandomAccessibleInterval;
 import net.imglib2.view.Views;
 
+/**
+ * This is a marching cubes implementation. It is inspired by
+ * Paul Bourke's (http://paulbourke.net/geometry/polygonise/) implementation. 
+ * Especially the lookup tables are from his implementation. 
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz
+ *
+ * @param <T> BooleanType
+ */
 @Plugin(type = Op.class, name = "defaultgeneratefaces")
 public class MarchingCubes<T extends BooleanType<T>> extends
 		AbstractOutputFunction<RandomAccessibleInterval<T>, DefaultFacets>
@@ -58,18 +67,18 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 			while (cu.hasNext()) {
 				vertex_values[i++] = (cu.next().get()) ? 1 : 0;
 			}
-			// 4-----5
-			// /| /|
+			//  4------5
+			// /|     /|
 			// 0-----1 |
 			// | 6---|-7
-			// |/ |/
+			// |/    |/
 			// 2-----3
 			vertex_values = mapFlatIterableToLookUpCube(vertex_values);
-			// 3-----2
-			// /| /|
+			//  3------2
+			// /|     /|
 			// 0-----1 |
 			// | 7---|-6
-			// |/ |/
+			// |/    |/
 			// 4-----5
 			int cubeindex = getCubeIndex(vertex_values);
 
@@ -221,7 +230,7 @@ public class MarchingCubes<T extends BooleanType<T>> extends
 
 	// For each of the possible vertex states listed in aiCubeEdgeFlags there is
 	// a specific triangulation
-	// of the edge intersection points. a2iTriangleConnectionTable lists all of
+	// of the edge intersection points. TriangleConnectionTable lists all of
 	// them in the form of
 	// 0-5 edge triples with the list terminated by the invalid value -1.
 	// For example: a2iTriangleConnectionTable[3] list the 2 triangles formed

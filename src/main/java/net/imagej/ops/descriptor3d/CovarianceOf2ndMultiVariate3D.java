@@ -3,14 +3,19 @@ package net.imagej.ops.descriptor3d;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 
+/**
+ * This class stores the covariance matrix of the 2nd multi variate 3D
+ * and the eigen decomposition of this matrix.
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz.
+ *
+ */
 public class CovarianceOf2ndMultiVariate3D {
 	
 	private Array2DRowRealMatrix matrix;
 	private EigenDecomposition ed = null;
 
-	public CovarianceOf2ndMultiVariate3D() {
-
-		
+	public CovarianceOf2ndMultiVariate3D() {		
 		matrix = new Array2DRowRealMatrix(3, 3);
 		matrix.setEntry(0, 0, 0);
 		matrix.setEntry(0, 1, 0);

@@ -1,12 +1,16 @@
 package net.imagej.ops.descriptor3d;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import net.imagej.ops.AbstractOpTest;
 
 import org.junit.Test;
 
-import net.imagej.ops.AbstractOpTest;
-
+/**
+ * This class tests the {@link BitTypeVertexInterpolator}. 
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz.
+ *
+ */
 public class BitTypeVertexInterpolatorTest extends AbstractOpTest {
 
 	@Test

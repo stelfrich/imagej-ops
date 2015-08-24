@@ -3,7 +3,6 @@ package net.imagej.ops.descriptor3d;
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Contingent;
 import net.imagej.ops.Op;
-import net.imagej.ops.features.firstorder.DefaultMoment2AboutMeanFeature;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.VolumeFeature;
 import net.imglib2.Cursor;
 import net.imglib2.roi.IterableRegion;
@@ -14,6 +13,14 @@ import org.scijava.ItemIO;
 import org.scijava.plugin.Parameter;
 import org.scijava.plugin.Plugin;
 
+/**
+ * This {@link Op} computes the 2nd multi variate of a 
+ * {@link IterableRegion} (Label).
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz
+ *
+ * @param <B> BooleanType
+ */
 @Plugin(type = Op.class, name = "multivariate3d")
 public class SecondMultiVariate3D<B extends BooleanType<B>> extends
 		AbstractOutputFunction<IterableRegion<B>, CovarianceOf2ndMultiVariate3D> implements Contingent {

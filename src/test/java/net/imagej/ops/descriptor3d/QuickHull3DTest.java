@@ -12,6 +12,16 @@ import net.imagej.ops.AbstractOpTest;
 import org.apache.commons.math3.geometry.euclidean.threed.Vector3D;
 import org.junit.Test;
 
+/**
+ * This class tests the {@link QuickHull3D} implementation. 
+ * 
+ * The number of facets is verified with qhull.org and
+ * {@link QuickHull3DTest#isConvex(List, double)} checks for 
+ * each centroid if it is behind all other facets. 
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz
+ *
+ */
 public class QuickHull3DTest extends AbstractOpTest {
 
 	@Test
@@ -169,6 +179,12 @@ public class QuickHull3DTest extends AbstractOpTest {
 		return isConvex;
 	}
 
+	/**
+	 * Creates a random point cloud.
+	 * @param n number of points
+	 * @param seed the seed
+	 * @return random point cloud
+	 */
 	private HashSet<Vertex> randomPointSet(int n, long seed) {
 		HashSet<Vertex> points = new HashSet<Vertex>();
 		Random r = new Random(seed);

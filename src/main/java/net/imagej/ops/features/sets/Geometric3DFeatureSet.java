@@ -9,7 +9,6 @@ import net.imagej.ops.OpRef;
 import net.imagej.ops.descriptor3d.BitTypeVertexInterpolator;
 import net.imagej.ops.descriptor3d.DefaultCentroid3D;
 import net.imagej.ops.descriptor3d.MarchingCubes;
-import net.imagej.ops.descriptor3d.QuickHull3D;
 import net.imagej.ops.descriptor3d.QuickHull3DFromMC;
 import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
@@ -32,6 +31,17 @@ import net.imglib2.RandomAccessibleInterval;
 import net.imglib2.type.BooleanType;
 import net.imglib2.type.numeric.real.DoubleType;
 
+/**
+ * This is the geometric 3D feature set. 
+ * To compute all features the marching cube algorithm is applied 
+ * to a Label and the quickhull algorithm is applied to the resulting
+ * mesh of the marching cubes. 
+ * 
+ * 
+ * @author Tim-Oliver Buchholz, University of Konstanz
+ *
+ * @param <T> BooleanType
+ */
 @Plugin(type = FeatureSet.class, label = "Geometric 3D Features", description = "Calculates the Geometric 3D Features")
 public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 		AbstractAutoResolvingFeatureSet<RandomAccessibleInterval<T>, DoubleType> {
