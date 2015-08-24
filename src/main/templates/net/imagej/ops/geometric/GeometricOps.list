@@ -4,7 +4,8 @@ authors = ["Christian Dietz", "Daniel Seebacher", "Andreas Graumann"]
 ops = ```
 [
 	[name: "moore-contour", iface: "MooreContours"],
-	[name: "convex-hull", iface: "ConvexHull"],
+	[name: "convex-hull-2d", iface: "ConvexHull2D"],
+	[name: "convex-hull-3d", iface: "ConvexHull3D"],
 	[name: "bounding-box", iface: "BoundingBox"],
 	[name: "center-of-gravity", iface: "CenterOfGravity"],
 	[name: "smallest-enclosing-rectangle", iface: "SmallestEnclosingRectangle"]
