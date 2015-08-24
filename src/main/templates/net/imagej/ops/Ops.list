@@ -23,6 +23,10 @@ ops = ```
 ```
 namespaces = ```
 [
+	[name: "zernike", iface: "Zernike", ops: [
+		[name: "phase",				iface: "Phase"],
+		[name: "magnitude", 		iface: "Magnitude"]
+	]],
 	[name: "create", iface: "Create", ops: [
 		[name: "img",                iface: "Img"],
 		[name: "imgLabeling",        iface: "ImgLabeling"],
