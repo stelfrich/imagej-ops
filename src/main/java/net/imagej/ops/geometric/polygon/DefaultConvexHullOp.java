@@ -35,7 +35,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import net.imagej.ops.Op;
-import net.imagej.ops.geometric.polygon.GeometricPolygonOps.ConvexHullPolygon;
+import net.imagej.ops.geometric.polygon.GeometricPolygonOps.ConvexHull2DPolygon;
 import net.imglib2.RealPoint;
 
 import org.scijava.ItemIO;
@@ -48,8 +48,8 @@ import org.scijava.plugin.Plugin;
  *
  * @author Daniel Seebacher, University of Konstanz.
  */
-@Plugin(type = Op.class, name = ConvexHullPolygon.NAME)
-public class DefaultConvexHullOp implements ConvexHullPolygon {
+@Plugin(type = Op.class, name = ConvexHull2DPolygon.NAME)
+public class DefaultConvexHullOp implements ConvexHull2DPolygon {
 
 	@Parameter(type = ItemIO.OUTPUT)
 	private Polygon output;

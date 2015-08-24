@@ -32,7 +32,7 @@ package net.imagej.ops.geometric.polygon;
 import net.imagej.ops.Op;
 import net.imagej.ops.OpService;
 import net.imagej.ops.geometric.GeometricOps.CenterOfGravity;
-import net.imagej.ops.geometric.GeometricOps.ConvexHull;
+import net.imagej.ops.geometric.GeometricOps.ConvexHull2D;
 import net.imagej.ops.geometric.polygon.GeometricPolygonOps.BoundingBoxPolygon;
 import net.imagej.ops.geometric.polygon.GeometricPolygonOps.SmallestEnclosingRectanglePolygon;
 import net.imagej.ops.statistics.Geometric2DOps.Area;
@@ -109,7 +109,7 @@ public class DefaultSmallestEnclosingRectangleOp implements
 	@Override
 	public void run() {
 
-		Polygon poly = (Polygon) ops.run(ConvexHull.class, input);
+		Polygon poly = (Polygon) ops.run(ConvexHull2D.class, input);
 
 		RealPoint polygonCenter = (RealPoint) ops.run(CenterOfGravity.class,
 				poly);
