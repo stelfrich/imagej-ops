@@ -7,6 +7,7 @@ import org.scijava.plugin.Plugin;
 
 import net.imagej.ops.Op;
 import net.imagej.ops.descriptor3d.QuickHull3D;
+import net.imagej.ops.descriptor3d.QuickHull3DFromMC;
 import net.imagej.ops.features.FeatureSet;
 import net.imagej.ops.features.geometric.Geometric3DFeatures.ConvexHullSurfacePixelFeature;
 import net.imagej.ops.statistics.Geometric3DOps.ConvexHullSurfacePixel;
@@ -24,7 +25,7 @@ public class DefaultConvexHullSurfacePixelFeature
 			ConvexHullSurfacePixelFeature<DoubleType> {
 
 	@Parameter(type = ItemIO.INPUT)
-	private QuickHull3D input;
+	private QuickHull3DFromMC input;
 
 	@Parameter(type = ItemIO.OUTPUT)
 	private DoubleType out;

@@ -10,6 +10,7 @@ import net.imagej.ops.descriptor3d.BitTypeVertexInterpolator;
 import net.imagej.ops.descriptor3d.DefaultCentroid3D;
 import net.imagej.ops.descriptor3d.MarchingCubes;
 import net.imagej.ops.descriptor3d.QuickHull3D;
+import net.imagej.ops.descriptor3d.QuickHull3DFromMC;
 import net.imagej.ops.descriptor3d.SecondMultiVariate3D;
 import net.imagej.ops.features.AbstractAutoResolvingFeatureSet;
 import net.imagej.ops.features.FeatureSet;
@@ -61,7 +62,7 @@ public class Geometric3DFeatureSet<T extends BooleanType<T>> extends
 		final HashSet<OpRef<?>> hiddenOps = new HashSet<OpRef<?>>();
 		hiddenOps.add(createOpRef(MarchingCubes.class, 1, new BitTypeVertexInterpolator()));
 		hiddenOps.add(createOpRef(SecondMultiVariate3D.class));
-		hiddenOps.add(createOpRef(QuickHull3D.class));
+		hiddenOps.add(createOpRef(QuickHull3DFromMC.class));
 		hiddenOps.add(createOpRef(DefaultCentroid3D.class));
 		return hiddenOps;
 	}

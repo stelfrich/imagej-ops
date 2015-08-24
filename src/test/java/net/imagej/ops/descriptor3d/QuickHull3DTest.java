@@ -20,7 +20,7 @@ public class QuickHull3DTest extends AbstractOpTest {
 		df.setPoints(randomPointSet(100000, 20150818));
 
 		DefaultFacets convexHull = (DefaultFacets) ops.run(QuickHull3D.class,
-				df);
+				df.getPoints());
 		assertTrue(isConvex(convexHull.getFacets(), convexHull.getEpsilon()));
 		assertEquals(175, convexHull.getPoints().size());
 	}
@@ -37,7 +37,7 @@ public class QuickHull3DTest extends AbstractOpTest {
 		df.setPoints(points);
 
 		DefaultFacets convexHull = (DefaultFacets) ops.run(QuickHull3D.class,
-				df);
+				df.getPoints());
 		assertTrue(isConvex(convexHull.getFacets(), convexHull.getEpsilon()));
 		assertEquals(4, convexHull.getPoints().size());
 	}
@@ -56,7 +56,7 @@ public class QuickHull3DTest extends AbstractOpTest {
 		df.setPoints(points);
 
 		DefaultFacets convexHull = (DefaultFacets) ops.run(QuickHull3D.class,
-				df);
+				df.getPoints());
 		assertTrue(isConvex(convexHull.getFacets(), convexHull.getEpsilon()));
 		assertEquals(5, convexHull.getPoints().size());
 	}
@@ -82,7 +82,7 @@ public class QuickHull3DTest extends AbstractOpTest {
 		df.setPoints(points);
 
 		DefaultFacets convexHull = (DefaultFacets) ops.run(QuickHull3D.class,
-				df);
+				df.getPoints());
 		assertTrue(isConvex(convexHull.getFacets(), convexHull.getEpsilon()));
 		assertEquals(12, convexHull.getPoints().size());
 	}
@@ -137,7 +137,7 @@ public class QuickHull3DTest extends AbstractOpTest {
 		df.setPoints(points);
 
 		DefaultFacets convexHull = (DefaultFacets) ops.run(QuickHull3D.class,
-				df);
+				df.getPoints());
 		assertTrue(isConvex(convexHull.getFacets(), convexHull.getEpsilon()));
 		assertEquals(20, convexHull.getPoints().size());
 	}
