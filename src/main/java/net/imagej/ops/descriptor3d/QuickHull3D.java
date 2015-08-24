@@ -13,7 +13,7 @@ import org.scijava.plugin.Plugin;
 import net.imagej.ops.AbstractOutputFunction;
 import net.imagej.ops.Op;
 import net.imagej.ops.OutputFunction;
-import net.imagej.ops.geometric.GeometricOps.ConvexHull;
+import net.imagej.ops.geometric.GeometricOps.ConvexHull3D;
 import net.imglib2.RandomAccessibleInterval;
 
 /**
@@ -27,8 +27,8 @@ import net.imglib2.RandomAccessibleInterval;
  * @author Tim-Oliver Buchholz, University of Konstanz
  *
  */
-@Plugin(type = ConvexHull.class, name = ConvexHull.NAME)
-public class QuickHull3D extends AbstractOutputFunction<MarchingCubes<?>, DefaultFacets> implements ConvexHull {
+@Plugin(type = Op.class, name = ConvexHull3D.NAME)
+public class QuickHull3D extends AbstractOutputFunction<HashSet<Vertex>, DefaultFacets> implements ConvexHull3D {
 
 	/**
 	 * Vertices which are not part of the convex hull.
@@ -56,14 +56,14 @@ public class QuickHull3D extends AbstractOutputFunction<MarchingCubes<?>, Defaul
 	private final double DOUBLE_PREC = 2.2204460492503131e-16;
 
 	@Override
-	public DefaultFacets createOutput(MarchingCubes<?> input) {
+	public DefaultFacets createOutput(HashSet<Vertex> input) {
 		return new DefaultFacets();
 	}
 
 	@Override
-	protected DefaultFacets safeCompute(MarchingCubes<?> input,
+	protected DefaultFacets safeCompute(HashSet<Vertex> input,
 			DefaultFacets output) {
-		m_vertices = new HashSet<Vertex>(input.getOutput().getPoints());
+		m_vertices = new HashSet<Vertex>(input);
 		m_facets = new ArrayList<TriangularFacet>();
 		m_facetsWithPointInFront = new ArrayList<TriangularFacet>();
 		computeHull();
