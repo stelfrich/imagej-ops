@@ -40,6 +40,7 @@ import java.util.Map;
 import net.imagej.ops.convert.ConvertPix;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
+import net.imagej.ops.features.zernike.ZernikeNamespace;
 import net.imagej.ops.filter.FilterNamespace;
 import net.imagej.ops.image.ImageNamespace;
 import net.imagej.ops.labeling.LabelingNamespace;
@@ -582,6 +583,11 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	@Override
 	public StatsNamespace stats() {
 		return namespace(StatsNamespace.class);
+	}
+	
+	@Override
+	public ZernikeNamespace zernike() {
+		return namespace(ZernikeNamespace.class);
 	}
 
 	@Override
