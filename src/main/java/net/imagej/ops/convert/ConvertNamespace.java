@@ -32,9 +32,9 @@ public class ConvertNamespace extends AbstractNamespace {
 
 	// -- Convert namespace ops --
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Bit.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Bit.class)
 	public Object bit(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Bit.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Bit.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToBit.class)
@@ -45,9 +45,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint2.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint2.class)
 	public Object uint2(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint2.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint2.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint2.class)
@@ -70,9 +70,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint4.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint4.class)
 	public Object uint4(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint4.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint4.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint4.class)
@@ -89,9 +89,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Int8.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Int8.class)
 	public Object int8(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Int8.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Int8.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToInt8.class)
@@ -101,9 +101,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint8.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint8.class)
 	public Object uint8(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint8.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint8.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint8.class)
@@ -120,9 +120,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint12.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint12.class)
 	public Object uint12(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint12.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint12.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint12.class)
@@ -139,9 +139,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Int16.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Int16.class)
 	public Object int16(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Int16.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Int16.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToInt16.class)
@@ -151,9 +151,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint16.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint16.class)
 	public Object uint16(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint16.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint16.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint16.class)
@@ -170,9 +170,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Int32.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Int32.class)
 	public Object int32(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Int32.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Int32.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.IntegerToInt32.class)
@@ -189,9 +189,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint32.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint32.class)
 	public Object uint32(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint32.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint32.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint32.class)
@@ -208,9 +208,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Int64.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Int64.class)
 	public Object int64(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Int64.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Int64.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToInt64.class)
@@ -227,9 +227,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint64.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint64.class)
 	public Object uint64(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint64.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint64.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToUint64.class)
@@ -246,9 +246,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Uint128.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Uint128.class)
 	public Object uint128(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Uint128.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Uint128.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.IntegerToUint128.class)
@@ -265,9 +265,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Float32.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Float32.class)
 	public Object float32(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Float32.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Float32.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToFloat32.class)
@@ -277,9 +277,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Cfloat32.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Cfloat32.class)
 	public Object cfloat32(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Cfloat32.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Cfloat32.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToCfloat32.class)
@@ -289,9 +289,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Float64.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Float64.class)
 	public Object float64(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Float64.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Float64.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToFloat64.class)
@@ -301,9 +301,9 @@ public class ConvertNamespace extends AbstractNamespace {
 		return result;
 	}
 
-	@OpMethod(op = net.imagej.ops.ConvertOps.Cfloat64.class)
+	@OpMethod(op = net.imagej.ops.Ops.ConvertOps.Cfloat64.class)
 	public Object cfloat64(final Object... args) {
-		return ops().run(net.imagej.ops.ConvertOps.Cfloat64.class, args);
+		return ops().run(net.imagej.ops.Ops.ConvertOps.Cfloat64.class, args);
 	}
 
 	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToCfloat64.class)
