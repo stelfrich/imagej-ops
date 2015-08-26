@@ -32,8 +32,8 @@ package net.imagej.ops.convert;
 
 import java.math.BigInteger;
 
-import net.imagej.ops.ConvertOps;
-import net.imagej.ops.Op;
+import net.imagej.ops.Ops;
+import net.imagej.ops.Ops.ConvertOps;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.ComplexType;
 import net.imglib2.type.numeric.IntegerType;
@@ -65,7 +65,7 @@ public final class ConvertTypes {
 		// NB: Prevent instantiation of utility class.
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Bit.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Bit.class, name = Ops.ConvertOps.Bit.NAME, priority = 0.4)
 	public static class ComplexToBit<C extends ComplexType<C>> implements
 		ConvertOps.Bit
 	{
@@ -83,7 +83,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint2.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint2.class, name = Ops.ConvertOps.Uint2.NAME, priority = 0.4)
 	public static class ComplexToUint2<C extends ComplexType<C>> implements
 		ConvertOps.Uint2
 	{
@@ -101,7 +101,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint2.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint2.class, name = Ops.ConvertOps.Uint2.NAME, priority = 0.4)
 	public static class IntegerToUint2<T extends IntegerType<T>> implements
 		ConvertOps.Uint2
 	{
@@ -119,7 +119,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint4.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint4.class, name = Ops.ConvertOps.Uint4.NAME, priority = 0.4)
 	public static class ComplexToUint4<C extends ComplexType<C>> implements
 		ConvertOps.Uint4
 	{
@@ -137,7 +137,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint4.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint4.class, name = Ops.ConvertOps.Uint4.NAME, priority = 0.4)
 	public static class IntegerToUint4<T extends IntegerType<T>> implements
 		ConvertOps.Uint4
 	{
@@ -155,8 +155,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int8.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int8.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int8.class, name = Ops.ConvertOps.Int8.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int8.ALIASES) })
 	public static class ComplexToInt8<C extends ComplexType<C>> implements
 		ConvertOps.Int8
 	{
@@ -174,8 +174,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint8.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint8.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint8.class, name = Ops.ConvertOps.Uint8.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint8.ALIASES) })
 	public static class ComplexToUint8<C extends ComplexType<C>> implements
 		ConvertOps.Uint8
 	{
@@ -193,8 +193,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint8.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint8.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint8.class, name = Ops.ConvertOps.Uint8.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint8.ALIASES) })
 	public static class IntegerToUint8<T extends IntegerType<T>> implements
 		ConvertOps.Uint8
 	{
@@ -212,7 +212,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint12.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint12.class, name = Ops.ConvertOps.Uint12.NAME, priority = 0.4)
 	public static class ComplexToUint12<C extends ComplexType<C>> implements
 		ConvertOps.Uint12
 	{
@@ -230,7 +230,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint12.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint12.class, name = Ops.ConvertOps.Uint12.NAME, priority = 0.4)
 	public static class IntegerToUint12<T extends IntegerType<T>> implements
 		ConvertOps.Uint12
 	{
@@ -248,8 +248,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int16.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int16.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int16.class, name = Ops.ConvertOps.Int16.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int16.ALIASES) })
 	public static class ComplexToInt16<C extends ComplexType<C>> implements
 		ConvertOps.Int16
 	{
@@ -267,8 +267,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint16.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint16.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint16.class, name = Ops.ConvertOps.Uint16.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint16.ALIASES) })
 	public static class ComplexToUint16<C extends ComplexType<C>> implements
 		ConvertOps.Uint16
 	{
@@ -286,8 +286,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint16.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint16.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint16.class, name = Ops.ConvertOps.Uint16.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint16.ALIASES) })
 	public static class IntegerToUint16<T extends IntegerType<T>> implements
 		ConvertOps.Uint16
 	{
@@ -305,8 +305,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int32.class, name = Ops.ConvertOps.Int32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int32.ALIASES) })
 	public static class ComplexToInt32<C extends ComplexType<C>> implements
 		ConvertOps.Int32
 	{
@@ -324,8 +324,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int32.class, name = Ops.ConvertOps.Int32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int32.ALIASES) })
 	public static class IntegerToInt32<T extends IntegerType<T>> implements
 		ConvertOps.Int32
 	{
@@ -343,8 +343,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint32.class, name = Ops.ConvertOps.Uint32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint32.ALIASES) })
 	public static class ComplexToUint32<C extends ComplexType<C>> implements
 		ConvertOps.Uint32
 	{
@@ -362,8 +362,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint32.class, name = Ops.ConvertOps.Uint32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint32.ALIASES) })
 	public static class IntegerToUint32<T extends IntegerType<T>> implements
 		ConvertOps.Uint32
 	{
@@ -381,8 +381,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int64.class, name = Ops.ConvertOps.Int64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int64.ALIASES) })
 	public static class ComplexToInt64<C extends ComplexType<C>> implements
 		ConvertOps.Int64
 	{
@@ -400,8 +400,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Int64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Int64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Int64.class, name = Ops.ConvertOps.Int64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Int64.ALIASES) })
 	public static class IntegerToInt64<T extends IntegerType<T>> implements
 		ConvertOps.Int64
 	{
@@ -419,8 +419,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint64.class, name = Ops.ConvertOps.Uint64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint64.ALIASES) })
 	public static class ComplexToUint64<C extends ComplexType<C>> implements
 		ConvertOps.Uint64
 	{
@@ -438,8 +438,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Uint64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Uint64.class, name = Ops.ConvertOps.Uint64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Uint64.ALIASES) })
 	public static class IntegerToUint64<T extends IntegerType<T>> implements
 		ConvertOps.Uint64
 	{
@@ -457,7 +457,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint128.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint128.class, name = Ops.ConvertOps.Uint128.NAME, priority = 0.4)
 	public static class ComplexToUint128<C extends ComplexType<C>> implements
 		ConvertOps.Uint128
 	{
@@ -476,7 +476,7 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Uint128.NAME, priority = 0.4)
+	@Plugin(type = Ops.ConvertOps.Uint128.class, name = Ops.ConvertOps.Uint128.NAME, priority = 0.4)
 	public static class IntegerToUint128<T extends IntegerType<T>> implements
 		ConvertOps.Uint128
 	{
@@ -494,8 +494,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Float32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Float32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Float32.class, name = Ops.ConvertOps.Float32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Float32.ALIASES) })
 	public static class ComplexToFloat32<C extends ComplexType<C>> implements
 		ConvertOps.Float32
 	{
@@ -513,8 +513,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Cfloat32.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Cfloat32.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Cfloat32.class, name = Ops.ConvertOps.Cfloat32.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Cfloat32.ALIASES) })
 	public static class ComplexToCfloat32<C extends ComplexType<C>> implements
 		ConvertOps.Cfloat32
 	{
@@ -532,8 +532,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Float64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Float64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Float64.class, name = Ops.ConvertOps.Float64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Float64.ALIASES) })
 	public static class ComplexToFloat64<C extends ComplexType<C>> implements
 		ConvertOps.Float64
 	{
@@ -551,8 +551,8 @@ public final class ConvertTypes {
 
 	}
 
-	@Plugin(type = Op.class, name = ConvertOps.Cfloat64.NAME, priority = 0.4,
-		attrs = { @Attr(name = "aliases", value = ConvertOps.Cfloat64.ALIASES) })
+	@Plugin(type = Ops.ConvertOps.Cfloat64.class, name = Ops.ConvertOps.Cfloat64.NAME, priority = 0.4,
+		attrs = { @Attr(name = "aliases", value = Ops.ConvertOps.Cfloat64.ALIASES) })
 	public static class ComplexToCfloat64<C extends ComplexType<C>> implements
 		ConvertOps.Cfloat64
 	{
