@@ -2,6 +2,7 @@
 package net.imagej.ops.convert;
 
 import net.imagej.ops.AbstractNamespace;
+import net.imagej.ops.Namespace;
 import net.imagej.ops.OpMethod;
 import net.imglib2.type.logic.BitType;
 import net.imglib2.type.numeric.ComplexType;
@@ -23,11 +24,14 @@ import net.imglib2.type.numeric.integer.UnsignedShortType;
 import net.imglib2.type.numeric.real.DoubleType;
 import net.imglib2.type.numeric.real.FloatType;
 
+import org.scijava.plugin.Plugin;
+
 /**
  * The convert namespace contains conversion operations.
  *
  * @author Alison Walter
  */
+@Plugin(type = Namespace.class)
 public class ConvertNamespace extends AbstractNamespace {
 
 	// -- Convert namespace ops --
@@ -42,6 +46,14 @@ public class ConvertNamespace extends AbstractNamespace {
 		final BitType result =
 			(BitType) ops().run(
 				net.imagej.ops.convert.ConvertTypes.ComplexToBit.class, in);
+		return result;
+	}
+
+	@OpMethod(op = net.imagej.ops.convert.ConvertTypes.ComplexToBit.class)
+	public <C extends ComplexType<C>> BitType bit(final C in, final BitType out) {
+		final BitType result =
+			(BitType) ops().run(
+				net.imagej.ops.convert.ConvertTypes.ComplexToBit.class, in, out);
 		return result;
 	}
 
