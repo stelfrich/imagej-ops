@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.imagej.ops.convert.ConvertPix;
+import net.imagej.ops.copy.CopyNamespace;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
 import net.imagej.ops.filter.FilterNamespace;
@@ -195,8 +196,9 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	{
 		@SuppressWarnings("unchecked")
 		final IterableInterval<O> result =
-			(IterableInterval<O>) run(net.imagej.ops.convert.ConvertIterableInterval.class, out,
-				in, pixConvert);
+			(IterableInterval<O>) run(
+				net.imagej.ops.convert.ConvertIterableInterval.class, out, in,
+				pixConvert);
 		return result;
 	}
 
@@ -270,8 +272,8 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	}
 
 	@Override
-	public <A, B, C> C join(final C out, final A in, final ComputerOp<A, B> first,
-		final ComputerOp<B, C> second)
+	public <A, B, C> C join(final C out, final A in,
+		final ComputerOp<A, B> first, final ComputerOp<B, C> second)
 	{
 		@SuppressWarnings("unchecked")
 		final C result =
@@ -281,8 +283,9 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	}
 
 	@Override
-	public <A, B, C> C join(final C out, final A in, final ComputerOp<A, B> first,
-		final ComputerOp<B, C> second, final BufferFactory<A, B> bufferFactory)
+	public <A, B, C> C join(final C out, final A in,
+		final ComputerOp<A, B> first, final ComputerOp<B, C> second,
+		final BufferFactory<A, B> bufferFactory)
 	{
 		@SuppressWarnings("unchecked")
 		final C result =
@@ -558,6 +561,11 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 
 	// -- Operation shortcuts - other namespaces --
 
+	@Override
+	public CopyNamespace copy() {
+		return namespace(CopyNamespace.class);
+	}
+	
 	@Override
 	public CreateNamespace create() {
 		return namespace(CreateNamespace.class);

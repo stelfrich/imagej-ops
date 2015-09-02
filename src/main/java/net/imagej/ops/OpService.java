@@ -36,6 +36,7 @@ import java.util.Map;
 
 import net.imagej.ImageJService;
 import net.imagej.ops.convert.ConvertPix;
+import net.imagej.ops.copy.CopyNamespace;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
 import net.imagej.ops.filter.FilterNamespace;
@@ -253,12 +254,13 @@ public interface OpService extends PTService<Op>, ImageJService {
 
 	/** Executes the "join" operation on the given arguments. */
 	@OpMethod(op = net.imagej.ops.join.DefaultJoinComputerAndComputer.class)
-	<A, B, C> C join(C out, A in, ComputerOp<A, B> first, ComputerOp<B, C> second);
+	<A, B, C> C
+		join(C out, A in, ComputerOp<A, B> first, ComputerOp<B, C> second);
 
 	/** Executes the "join" operation on the given arguments. */
 	@OpMethod(op = net.imagej.ops.join.DefaultJoinComputerAndComputer.class)
-	<A, B, C> C join(C out, A in, ComputerOp<A, B> first, ComputerOp<B, C> second,
-		BufferFactory<A, B> bufferFactory);
+	<A, B, C> C join(C out, A in, ComputerOp<A, B> first,
+		ComputerOp<B, C> second, BufferFactory<A, B> bufferFactory);
 
 	/** Executes the "join" operation on the given arguments. */
 	@OpMethod(op = net.imagej.ops.join.DefaultJoinInplaceAndInplace.class)
@@ -380,6 +382,9 @@ public interface OpService extends PTService<Op>, ImageJService {
 		boolean dropSingleDimensions);
 
 	// -- Operation shortcuts - other namespaces --
+
+	/** Gateway into ops of the "copy" namespace. */
+	CopyNamespace copy();
 
 	/** Gateway into ops of the "create" namespace. */
 	CreateNamespace create();
