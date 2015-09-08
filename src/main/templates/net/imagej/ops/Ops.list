@@ -23,7 +23,7 @@ ops = ```
 ```
 namespaces = ```
 [
-	[name: "convert", iface: "Convert", ops: [
+	[name: "convert", iface: "ConvertOps", ops: [
 		[name: "bit",      iface: "Bit"],
 		[name: "uint2",    iface: "Uint2"],
 		[name: "uint4",    iface: "Uint4"],
