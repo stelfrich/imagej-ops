@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.imagej.ImageJService;
+import net.imagej.ops.convert.ConvertNamespace;
 import net.imagej.ops.convert.ConvertPix;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
@@ -373,6 +374,9 @@ public interface OpService extends PTService<Op>, ImageJService {
 		boolean dropSingleDimensions);
 
 	// -- Operation shortcuts - other namespaces --
+
+	/** Gateway into ops of the "create" namespace. */
+	ConvertNamespace convert();
 
 	/** Gateway into ops of the "create" namespace. */
 	CreateNamespace create();

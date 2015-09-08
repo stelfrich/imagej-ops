@@ -7,13 +7,13 @@
  * %%
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
- * 
+ *
  * 1. Redistributions of source code must retain the above copyright notice,
  *    this list of conditions and the following disclaimer.
  * 2. Redistributions in binary form must reproduce the above copyright notice,
  *    this list of conditions and the following disclaimer in the documentation
  *    and/or other materials provided with the distribution.
- * 
+ *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -37,6 +37,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
+import net.imagej.ops.convert.ConvertNamespace;
 import net.imagej.ops.convert.ConvertPix;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
@@ -194,8 +195,9 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	{
 		@SuppressWarnings("unchecked")
 		final IterableInterval<O> result =
-			(IterableInterval<O>) run(net.imagej.ops.convert.ConvertIterableInterval.class, out,
-				in, pixConvert);
+			(IterableInterval<O>) run(
+				net.imagej.ops.convert.ConvertIterableInterval.class, out, in,
+				pixConvert);
 		return result;
 	}
 
@@ -269,8 +271,8 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	}
 
 	@Override
-	public <A, B, C> C join(final C out, final A in, final ComputerOp<A, B> first,
-		final ComputerOp<B, C> second)
+	public <A, B, C> C join(final C out, final A in,
+		final ComputerOp<A, B> first, final ComputerOp<B, C> second)
 	{
 		@SuppressWarnings("unchecked")
 		final C result =
@@ -280,8 +282,9 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	}
 
 	@Override
-	public <A, B, C> C join(final C out, final A in, final ComputerOp<A, B> first,
-		final ComputerOp<B, C> second, final BufferFactory<A, B> bufferFactory)
+	public <A, B, C> C join(final C out, final A in,
+		final ComputerOp<A, B> first, final ComputerOp<B, C> second,
+		final BufferFactory<A, B> bufferFactory)
 	{
 		@SuppressWarnings("unchecked")
 		final C result =
@@ -308,8 +311,8 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	{
 		@SuppressWarnings("unchecked")
 		final A result =
-			(A) run(net.imagej.ops.join.DefaultJoinComputers.class, out, in,
-				ops, bufferFactory);
+			(A) run(net.imagej.ops.join.DefaultJoinComputers.class, out, in, ops,
+				bufferFactory);
 		return result;
 	}
 
@@ -425,8 +428,7 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 		@SuppressWarnings("unchecked")
 		final IterableInterval<B> result =
 			(IterableInterval<B>) run(
-				net.imagej.ops.map.MapIterableIntervalToView.class, input, op,
-				type);
+				net.imagej.ops.map.MapIterableIntervalToView.class, input, op, type);
 		return result;
 	}
 
@@ -543,6 +545,11 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	}
 
 	// -- Operation shortcuts - other namespaces --
+
+	@Override
+	public ConvertNamespace convert() {
+		return namespace(ConvertNamespace.class);
+	}
 
 	@Override
 	public CreateNamespace create() {
