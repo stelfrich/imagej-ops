@@ -39,6 +39,7 @@ import net.imagej.ops.convert.ConvertPix;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
 import net.imagej.ops.features.haralick.HaralickNamespace;
+import net.imagej.ops.features.tamura2d.TamuraNamespace;
 import net.imagej.ops.filter.FilterNamespace;
 import net.imagej.ops.image.ImageNamespace;
 import net.imagej.ops.imagemoments.ImageMomentsNamespace;
@@ -412,6 +413,8 @@ public interface OpService extends PTService<Op>, ImageJService {
 	
 	/** Gateway into ops of the "image moments" namespace. */
 	ImageMomentsNamespace imagemoments();
+	/** Gateway into ops of the "tamura" namespace */
+	TamuraNamespace tamura2d();
 
 	/** Gateway into ops of the "thread" namespace. */
 	ThreadNamespace thread();
