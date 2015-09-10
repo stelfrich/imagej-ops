@@ -41,6 +41,7 @@ import net.imagej.ops.convert.ConvertPix;
 import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
 import net.imagej.ops.features.haralick.HaralickNamespace;
+import net.imagej.ops.features.lbp2d.Lbp2dNamespace;
 import net.imagej.ops.filter.FilterNamespace;
 import net.imagej.ops.image.ImageNamespace;
 import net.imagej.ops.imagemoments.ImageMomentsNamespace;
@@ -588,6 +589,11 @@ public class DefaultOpService extends AbstractPTService<Op> implements
 	@Override
 	public LabelingNamespace labeling() {
 		return namespace(LabelingNamespace.class);
+	}
+	
+	@Override
+	public Lbp2dNamespace lbp2d() {
+		return namespace(Lbp2dNamespace.class);
 	}
 
 	@Override
