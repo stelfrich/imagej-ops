@@ -42,6 +42,7 @@ import net.imagej.ops.create.CreateNamespace;
 import net.imagej.ops.deconvolve.DeconvolveNamespace;
 import net.imagej.ops.features.haralick.HaralickNamespace;
 import net.imagej.ops.filter.FilterNamespace;
+import net.imagej.ops.geometric.GeometricNamespace;
 import net.imagej.ops.image.ImageNamespace;
 import net.imagej.ops.imagemoments.ImageMomentsNamespace;
 import net.imagej.ops.labeling.LabelingNamespace;
@@ -668,6 +669,11 @@ public abstract class AbstractOpEnvironment extends AbstractContextual
 		return namespace(ImageMomentsNamespace.class);
 	}
 
+	@Override
+	public GeometricNamespace geometric() {
+		return namespace(GeometricNamespace.class);
+	}
+	
 	@Override
 	public LabelingNamespace labeling() {
 		return namespace(LabelingNamespace.class);
