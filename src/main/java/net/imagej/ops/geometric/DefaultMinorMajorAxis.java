@@ -86,6 +86,8 @@ public class DefaultMinorMajorAxis extends
 		double major = Math.sqrt(1.0 / Math.abs(a22 + z));
 		double minor = Math.sqrt(1.0 / Math.abs(a11 - z));
 		// equalize areas
+		
+		//FIXME: m00 is < zero thats why the tests fail.
 		double scale = Math.sqrt(m00 / (Math.PI * major * minor));
 
 		major = major * scale * 2.0;
