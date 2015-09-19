@@ -5,8 +5,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
-import ij.ImagePlus;
-import ij.io.Opener;
 import net.imagej.ops.Ops.Geometric3D;
 import net.imagej.ops.Ops.Geometric3D.ConvexHullSurfaceArea;
 import net.imagej.ops.Ops.Geometric3D.ConvexHullSurfacePixel;
@@ -14,20 +12,9 @@ import net.imagej.ops.Ops.Geometric3D.Convexity;
 import net.imagej.ops.Ops.Geometric3D.Rugosity;
 import net.imagej.ops.Ops.Geometric3D.Solidity;
 import net.imagej.ops.features.AbstractFeatureTest;
-import net.imglib2.Cursor;
-import net.imglib2.RandomAccess;
-import net.imglib2.img.Img;
-import net.imglib2.img.array.ArrayImgs;
-import net.imglib2.img.display.imagej.ImageJFunctions;
-import net.imglib2.roi.labeling.ImgLabeling;
 import net.imglib2.roi.labeling.LabelRegion;
-import net.imglib2.roi.labeling.LabelRegions;
-import net.imglib2.roi.labeling.LabelingType;
-import net.imglib2.type.numeric.integer.IntType;
-import net.imglib2.type.numeric.real.FloatType;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
